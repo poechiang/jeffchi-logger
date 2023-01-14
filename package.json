@@ -1,0 +1,21 @@
+{
+  "name": "@jeffchi/logger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "typescript",
+    "javascript",
+    "logger",
+    "log",
+    "warn",
+    "info",
+    "error",
+    "debug"
+  ],
+  "author": "jeffery·chiang",
+  "license": "MIT"
+}
