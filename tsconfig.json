@@ -44,12 +44,20 @@
     // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from 'node_modules'. Only applicable with 'allowJs'. */
 
     /* Emit */
+<<<<<<< HEAD
     "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+=======
+    // "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+>>>>>>> 30c7cd43c5261d473f011ebdc28cde4e2779712e
     // "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
     // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
     // "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
     // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output. */
+<<<<<<< HEAD
     "outDir": "./lib" /* Specify an output folder for all emitted files. */,
+=======
+    "outDir": "./dist" /* Specify an output folder for all emitted files. */,
+>>>>>>> 30c7cd43c5261d473f011ebdc28cde4e2779712e
     // "removeComments": true,                           /* Disable emitting comments. */
     // "noEmit": true,                                   /* Disable emitting files from a compilation. */
     // "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
@@ -100,6 +108,11 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
+<<<<<<< HEAD
   "include": ["src/**/*.ts", "src/**/*.d.ts"],
   "exclude": ["node_modules", "**/__tests__/*"]
+=======
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+>>>>>>> 30c7cd43c5261d473f011ebdc28cde4e2779712e
 }

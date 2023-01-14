@@ -1,5 +1,8 @@
 import { format } from "date-fns";
+<<<<<<< HEAD
 import type { Logger } from "./interface";
+=======
+>>>>>>> 30c7cd43c5261d473f011ebdc28cde4e2779712e
 
 const toString = (v: any): string => Object.prototype.toString.call(v);
 
