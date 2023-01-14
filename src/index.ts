@@ -1,50 +1,49 @@
-import { format } from 'date-fns';
-import { Logger } from './interface';
-import { buildOutputPreffix, checkEnv, checkPlatform, noop } from './utils';
+import { defOptions } from './consts/defOptions';
+import { ILogger, ILogOptions, LogLevel, LogMode, LogTags } from './interface';
+import { buildLogPreffix } from './utils/buildLogPreffix';
+import { checkLogMode } from './utils/checkLogMode';
+import { checkPlatform } from './utils/checkPlateform';
+import { isArray } from './utils/type';
+import { writeLogFile } from './utils/writeFile';
 
-const defOptions: Logger.IOptions = {
-  date: true,
-  env: Logger.Evn.ALL,
-};
-
-export const loggerWithTags = (tags: string | string[], options?: Logger.IOptions) => {
-  if (!Array.isArray(tags)) {
+export const loggerWithTags = (tags: LogTags, options?: ILogOptions): ILogger => {
+  if (!isArray(tags)) {
     tags = [tags];
   }
 
   const { env, ...mergedOptions } = { ...defOptions, ...(options || {}) };
 
   const debug = (...rest: any[]) => {
-    const prefix = buildOutputPreffix(tags as string[], mergedOptions);
-    checkEnv(env || Logger.Evn.ALL) && console.debug(prefix, ...rest);
+    const prefix = buildLogPreffix(tags as string[], { level: LogLevel.DEBUG, ...mergedOptions });
+    const content = [...prefix, ...rest];
+    checkLogMode(env || LogMode.ALL) && console.debug(...content);
+    checkPlatform().then((writer) => writeLogFile(writer, content));
   };
   const info = (...rest: any[]) => {
-    const prefix = buildOutputPreffix(tags as string[], mergedOptions);
-    checkEnv(env || Logger.Evn.ALL) && console.info(prefix, ...rest);
+    const prefix = buildLogPreffix(tags as string[], { level: LogLevel.INFO, ...mergedOptions });
+    const content = [...prefix, ...rest];
+    checkLogMode(env || LogMode.ALL) && console.info(...content);
+    checkPlatform().then((writer) => writeLogFile(writer, content));
   };
   const log = (...rest: any[]) => {
-    const prefix = buildOutputPreffix(tags as string[], mergedOptions);
-    checkEnv(env || Logger.Evn.ALL) && console.log(...prefix, ...rest);
-    checkPlatform().then((write) =>
-      write?.(
-        `logs/${format(Date.now(), 'yyyy-MM-dd')}.log`,
-        [...prefix, ...rest.map(JSON.stringify as any), '\n'].join(' '),
-        { flag: 'a' },
-        noop,
-      ),
-    );
+    const prefix = buildLogPreffix(tags as string[], mergedOptions);
+    const content = [...prefix, ...rest];
+    checkLogMode(env || LogMode.ALL) && console.log(...content);
+    checkPlatform().then((writer) => writeLogFile(writer, content));
   };
   const warn = (...rest: any[]) => {
-    const prefix = buildOutputPreffix(tags as string[], mergedOptions);
-    checkEnv(env || Logger.Evn.ALL) && console.warn(prefix, ...rest);
+    const prefix = buildLogPreffix(tags as string[], { level: LogLevel.WARN, ...mergedOptions });
+    const content = [...prefix, ...rest];
+    checkLogMode(env || LogMode.ALL) && console.warn(...content);
+    checkPlatform().then((writer) => writeLogFile(writer, content));
   };
 
-  const error = (msg: string) => {
-    const prefix = buildOutputPreffix(tags as string[], mergedOptions);
-    if (checkEnv(env || Logger.Evn.ALL)) {
-      console.warn(prefix);
-      throw new Error(msg);
-    }
+  const error = (msg: string, cause?: Error) => {
+    const prefix = buildLogPreffix(tags as string[], { level: LogLevel.ERROR, ...mergedOptions });
+    const content = [...prefix, msg];
+    checkLogMode(env || LogMode.ALL) && console.error(...content);
+    checkPlatform().then((writer) => writeLogFile(writer, content));
+    throw new Error(msg, { cause });
   };
   return { debug, info, log, warn, error };
 };
