@@ -77,6 +77,7 @@ export interface IFileHelper {
   join?: (...paths: string[]) => string;
   sep?: '\\' | '/';
   resolve?: (...paths: string[]) => string;
+  dirname?: (fn: string) => string;
 }
 export interface ILogger {
   debug: (...rest: any[]) => void;
