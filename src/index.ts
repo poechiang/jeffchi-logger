@@ -1,13 +1,13 @@
 import { format } from 'date-fns';
-import { Logger } from './interface';
+import { ILogger, ILogOptions, LogMode } from './interface';
 import { buildOutputPreffix, checkEnv, checkPlatform, noop } from './utils';
 
-const defOptions: Logger.IOptions = {
+const defOptions: ILogOptions = {
   date: true,
-  env: Logger.Evn.ALL,
+  env: LogMode.ALL,
 };
 
-export const loggerWithTags = (tags: string | string[], options?: Logger.IOptions) => {
+export const loggerWithTags = (tags: string | string[], options?: ILogOptions): ILogger => {
   if (!Array.isArray(tags)) {
     tags = [tags];
   }
@@ -16,15 +16,15 @@ export const loggerWithTags = (tags: string | string[], options?: Logger.IOption
 
   const debug = (...rest: any[]) => {
     const prefix = buildOutputPreffix(tags as string[], mergedOptions);
-    checkEnv(env || Logger.Evn.ALL) && console.debug(prefix, ...rest);
+    checkEnv(env || LogMode.ALL) && console.debug(prefix, ...rest);
   };
   const info = (...rest: any[]) => {
     const prefix = buildOutputPreffix(tags as string[], mergedOptions);
-    checkEnv(env || Logger.Evn.ALL) && console.info(prefix, ...rest);
+    checkEnv(env || LogMode.ALL) && console.info(prefix, ...rest);
   };
   const log = (...rest: any[]) => {
     const prefix = buildOutputPreffix(tags as string[], mergedOptions);
-    checkEnv(env || Logger.Evn.ALL) && console.log(...prefix, ...rest);
+    checkEnv(env || LogMode.ALL) && console.log(...prefix, ...rest);
     checkPlatform().then((write) =>
       write?.(
         `logs/${format(Date.now(), 'yyyy-MM-dd')}.log`,
@@ -36,12 +36,12 @@ export const loggerWithTags = (tags: string | string[], options?: Logger.IOption
   };
   const warn = (...rest: any[]) => {
     const prefix = buildOutputPreffix(tags as string[], mergedOptions);
-    checkEnv(env || Logger.Evn.ALL) && console.warn(prefix, ...rest);
+    checkEnv(env || LogMode.ALL) && console.warn(prefix, ...rest);
   };
 
   const error = (msg: string) => {
     const prefix = buildOutputPreffix(tags as string[], mergedOptions);
-    if (checkEnv(env || Logger.Evn.ALL)) {
+    if (checkEnv(env || LogMode.ALL)) {
       console.warn(prefix);
       throw new Error(msg);
     }

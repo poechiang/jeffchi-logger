@@ -1,12 +1,12 @@
 import { format } from 'date-fns';
-import type { Logger } from './interface';
+import { ILogOptions, LogMode } from './interface';
 
 const toString = (v: any): string => Object.prototype.toString.call(v);
 
 export const isUndefined = (v: any) => v === undefined;
 export const isString = (v: any) => typeof v === 'string' || toString(v) === '[object String]';
 
-export const buildOutputPreffix = (tags: string[], options: Logger.IOptions) => {
+export const buildOutputPreffix = (tags: string[], options: ILogOptions) => {
   const prefix = [];
   const { date } = options;
   if (date) {
@@ -23,7 +23,7 @@ export const buildOutputPreffix = (tags: string[], options: Logger.IOptions) => 
   return prefix;
 };
 
-export const checkEnv = (env: Logger.Evn) => (env === 'all' || process.env.NODE_ENV === env) && console !== undefined;
+export const checkEnv = (env: LogMode) => (env === 'all' || process.env.NODE_ENV === env) && console !== undefined;
 
 export const checkPlatform = () =>
   import('fs').then((fs) => {
