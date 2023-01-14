@@ -1,4 +1,6 @@
 {
+  "rootDir": "src",
+  "roots": ["__tests__"],
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
