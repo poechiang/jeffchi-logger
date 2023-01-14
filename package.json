@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "description": "A log print output javascript tool library that can be used at the front and back ends",
