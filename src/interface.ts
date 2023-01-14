@@ -8,9 +8,24 @@ export enum LogMode {
   DEVELOPMENET = 'development',
   NONE = 'none',
 }
+/**
+ * 日志级别
+ */
+export enum LogLevel {
+  LOG = 'LOG',
+  WARN = 'WARN',
+  INFO = 'INFO',
+  ERROR = 'ERROR',
+  DEBUG = 'DEBUG',
+}
 export type LogTags = string | string[];
+
 /** 日志输入配置选项 */
 export interface ILogOptions {
+  /** 日志级别
+   * @default LogLevel.LOG
+   */
+  level?: LogLevel;
   /**
    * 是否支持输出时间戳及时间戳格式
    *
@@ -24,7 +39,7 @@ export interface ILogOptions {
    */
   env?: LogMode;
 }
-
+export type LogContent = any[];
 export interface ILogger {
   debug: (...rest: any[]) => void;
   info: (...rest: any[]) => void;
