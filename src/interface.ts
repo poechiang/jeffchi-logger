@@ -8,6 +8,7 @@ export enum LogMode {
   DEVELOPMENET = 'development',
   NONE = 'none',
 }
+export type LogTags = string | string[];
 /** 日志输入配置选项 */
 export interface ILogOptions {
   /**
