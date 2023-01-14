@@ -1,49 +1,55 @@
+import { LogCache } from './cache';
 import { defOptions } from './consts/defOptions';
 import { ILogger, ILogOptions, LogLevel, LogMode, LogTags } from './interface';
 import { buildLogPreffix } from './utils/buildLogPreffix';
 import { checkLogMode } from './utils/checkLogMode';
-import { checkPlatform } from './utils/checkPlateform';
 import { isArray } from './utils/type';
-import { writeLogFile } from './utils/writeFile';
 
 export const loggerWithTags = (tags: LogTags, options?: ILogOptions): ILogger => {
   if (!isArray(tags)) {
     tags = [tags];
   }
 
-  const { env, ...mergedOptions } = { ...defOptions, ...(options || {}) };
+  const { env, outputFile, ...mergedOptions } = { ...defOptions, ...(options || {}) };
 
   const debug = (...rest: any[]) => {
     const prefix = buildLogPreffix(tags as string[], { level: LogLevel.DEBUG, ...mergedOptions });
-    const content = [...prefix, ...rest];
-    checkLogMode(env || LogMode.ALL) && console.debug(...content);
-    checkPlatform().then((writer) => writeLogFile(writer, content));
+
+    checkLogMode(env || LogMode.ALL) && console.debug([...prefix, ...rest]);
+    LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
   };
   const info = (...rest: any[]) => {
     const prefix = buildLogPreffix(tags as string[], { level: LogLevel.INFO, ...mergedOptions });
-    const content = [...prefix, ...rest];
-    checkLogMode(env || LogMode.ALL) && console.info(...content);
-    checkPlatform().then((writer) => writeLogFile(writer, content));
+
+    checkLogMode(env || LogMode.ALL) && console.info([...prefix, ...rest]);
+    LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
   };
   const log = (...rest: any[]) => {
     const prefix = buildLogPreffix(tags as string[], mergedOptions);
-    const content = [...prefix, ...rest];
-    checkLogMode(env || LogMode.ALL) && console.log(...content);
-    checkPlatform().then((writer) => writeLogFile(writer, content));
+
+    checkLogMode(env || LogMode.ALL) && console.log([...prefix, ...rest]);
+    LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
   };
   const warn = (...rest: any[]) => {
     const prefix = buildLogPreffix(tags as string[], { level: LogLevel.WARN, ...mergedOptions });
-    const content = [...prefix, ...rest];
-    checkLogMode(env || LogMode.ALL) && console.warn(...content);
-    checkPlatform().then((writer) => writeLogFile(writer, content));
+    const { disableError } = mergedOptions;
+    const out = disableError ? console.debug : console.warn;
+    checkLogMode(env || LogMode.ALL) && out([...prefix, ...rest]);
+
+    LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
   };
 
   const error = (msg: string, cause?: Error) => {
     const prefix = buildLogPreffix(tags as string[], { level: LogLevel.ERROR, ...mergedOptions });
-    const content = [...prefix, msg];
-    checkLogMode(env || LogMode.ALL) && console.error(...content);
-    checkPlatform().then((writer) => writeLogFile(writer, content));
-    throw new Error(msg, { cause });
+    const { ignoreThrow, disableError } = mergedOptions;
+    const out = disableError ? console.debug : console.error;
+    checkLogMode(env || LogMode.ALL) && out([...prefix, msg]);
+
+    LogCache.cache.push({ prefix, timestamp: Date.now(), data: [msg] }, outputFile);
+
+    if (!ignoreThrow) {
+      throw new Error(msg, { cause });
+    }
   };
   return { debug, info, log, warn, error };
 };
