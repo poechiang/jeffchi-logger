@@ -1,10 +1,21 @@
 {
   "name": "@jeffchi/logger",
   "version": "1.0.0",
-  "description": "",
+  "description": "A log print output javascript tool library that can be used at the front and back ends",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poechiang/jeffchi-logger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/poechiang/jeffchi-logger/issues"
+  },
+  "homepage": "https://github.com/poechiang/jeffchi-logger#readme",
   "main": "dist/index.js",
   "scripts": {
-    "test": "test"
+    "build": "tsc",
+    "fmt": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "typescript",
@@ -17,5 +28,15 @@
     "debug"
   ],
   "author": "jeffery·chiang",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "date-fns": "^2.29.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "prettier": "^2.8.2",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.9.4"
+  }
 }
