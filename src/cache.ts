@@ -68,7 +68,7 @@ export class LogCache {
 
   /** 检查日志文件的路径,如果目录不存在,则创建,最好返回有效的日志文件,如果文件已存在,则追加日志数据 */
   #checkFolder(output: string): void {
-    const paths = this#fs.dirname(output || this.defaultLogFile);
+    const paths = this.#fs?.dirname?.(output || this.defaultLogFile) || '';
 
     const { existsSync, mkdirSync } = this.#fs || {};
 
