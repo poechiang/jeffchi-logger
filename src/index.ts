@@ -15,26 +15,26 @@ export const loggerWithTags = (tags: LogTags, options?: ILogOptions): ILogger =>
   const debug = (...rest: any[]) => {
     const prefix = buildLogPreffix(tags as string[], { level: LogLevel.DEBUG, ...mergedOptions });
 
-    checkLogMode(env || LogMode.ALL) && console.debug([...prefix, ...rest]);
+    checkLogMode(env || LogMode.ALL) && console.debug(...prefix, ...rest);
     LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
   };
   const info = (...rest: any[]) => {
     const prefix = buildLogPreffix(tags as string[], { level: LogLevel.INFO, ...mergedOptions });
 
-    checkLogMode(env || LogMode.ALL) && console.info([...prefix, ...rest]);
+    checkLogMode(env || LogMode.ALL) && console.info(...prefix, ...rest);
     LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
   };
   const log = (...rest: any[]) => {
     const prefix = buildLogPreffix(tags as string[], mergedOptions);
 
-    checkLogMode(env || LogMode.ALL) && console.log([...prefix, ...rest]);
+    checkLogMode(env || LogMode.ALL) && console.log(...prefix, ...rest);
     LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
   };
   const warn = (...rest: any[]) => {
     const prefix = buildLogPreffix(tags as string[], { level: LogLevel.WARN, ...mergedOptions });
     const { disableError } = mergedOptions;
     const out = disableError ? console.debug : console.warn;
-    checkLogMode(env || LogMode.ALL) && out([...prefix, ...rest]);
+    checkLogMode(env || LogMode.ALL) && out(...prefix, ...rest);
 
     LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
   };
@@ -43,7 +43,7 @@ export const loggerWithTags = (tags: LogTags, options?: ILogOptions): ILogger =>
     const prefix = buildLogPreffix(tags as string[], { level: LogLevel.ERROR, ...mergedOptions });
     const { ignoreThrow, disableError } = mergedOptions;
     const out = disableError ? console.debug : console.error;
-    checkLogMode(env || LogMode.ALL) && out([...prefix, msg]);
+    checkLogMode(env || LogMode.ALL) && out(...prefix, msg);
 
     LogCache.cache.push({ prefix, timestamp: Date.now(), data: [msg] }, outputFile);
 

@@ -9,7 +9,7 @@ export const checkPlatform = (): Promise<IFileHelper | null> =>
     // 如果fs为空则判定当前为浏览器环境
     if (!fs) return null;
     const { existsSync, mkdirSync, writeFile } = fs;
-    const { sep, resolve, join } = path;
+    const { sep, resolve, join, dirname } = path;
     return {
       existsSync,
       mkdirSync,
@@ -17,5 +17,6 @@ export const checkPlatform = (): Promise<IFileHelper | null> =>
       join,
       sep,
       resolve,
+      dirname,
     };
   });
