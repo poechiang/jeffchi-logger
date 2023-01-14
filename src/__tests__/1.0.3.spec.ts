@@ -18,3 +18,8 @@ test(`${currVersion} test!`, () => {
 test.todo(
   `All current test cases have ended, please check the test log file "${process.cwd()}/${testLogFile}" to measure the final test results `,
 );
+
+afterAll((done) => {
+  // 所有的日志文件最长1秒,等文件写入后再结束
+  setTimeout(done, 2000);
+});
