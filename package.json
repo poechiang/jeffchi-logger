@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "test"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "typescript",
@@ -17,5 +17,11 @@
     "debug"
   ],
   "author": "jeffery·chiang",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "date-fns": "^2.29.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18"
+  }
 }
