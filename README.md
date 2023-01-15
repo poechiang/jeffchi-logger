@@ -129,10 +129,32 @@ export interface ILogOptions {
 > npm run test        # 所有测试文件
 > ```
 
+## 构建脚本
+
+通过运行构建脚本,可实现不同的功能
+
+```bash
+  npm run name
+```
+
+| 脚本名称      | 说明                                                            |
+| ------------- | --------------------------------------------------------------- |
+| clear         | 清理 `lib/` `docs/` `build/`临时目录                            |
+| doc           | 利用 typedoc 生成 api 文档,位于`docs/`目录下                    |
+| dev           | 启动开发模式                                                    |
+| build         | 执行构建过程                                                    |
+| format        | 利用 prettier 格式化                                            |
+| lint          | 依赖 tslint 对代码检查                                          |
+| test          | 依赖 jest 测试代码                                              |
+| push          | 用指定 message 提交代码并推送至远程                             |
+| version       | 生成新的 patch 版本号,同步至无程仓库打标分支                    |
+| release       | 生成新的 patch 版本号,推送远程仓库后,并发布版本至 npm 仓        |
+| release:alpha | 生成新的 alpha 版本号,推送远程仓库后,并发布 alpha 版本至 npm 仓 |
+| release:rc    | 生成新的 RC 版本号,推送远程仓库后,并发布 rc 版本至 npm 仓       |
+| release:major | 生成新的主版本号并推送远程仓库后,并发布版本至 npm 仓            |
+| release:minor | 生成新的次版本号并推送远程仓库后,并发布版本至 npm 仓            |
+| release:patch | 生成新的 patch 号并推送远程仓库后,并发布版本至 npm 仓           |
+
 ## License
 
 MIT
-
-```
-
-```
