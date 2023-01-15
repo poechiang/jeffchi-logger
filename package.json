@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
