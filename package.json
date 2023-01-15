@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "2.6.0-alpha.2",
+  "version": "2.5.1-alpha.0",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
@@ -40,14 +40,10 @@
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "release": "cross-env-shell standard-version --prerelease  $npm_config_pre --release-as $npm_config_ver",
-    "release:all": "cross-env-shell standard-version -a  --prerelease  %npm_config_pre% --release-as %npm_config_ver% ",
-    "release:alpha": "standard-version -- -a --prerelease alpha --release-as",
-    "postrelease:alpha": "git push --follow-tags && npm publish --tag alpha",
-    "release:beta": "standard-version -- -a --prerelease beta --release-as",
-    "postrelease:beta": "git push --follow-tags && npm publish --tag beta",
-    "release:rc": "standard-version -- -a --prerelease rc --release-as",
-    "postrelease:rc": "git push --follow-tags && npm publish --tag rc"
+    "release": "cross-env-shell standard-version --prerelease $npm_config_pre --release-as ",
+    "postrelease": "git push --follow-tags && npm publish --tag $npm_config_pre",
+    "release:all": "cross-env-shell standard-version -a  --prerelease  %npm_config_pre% --release-as ",
+    "postrelease:all": "git push --follow-tags && npm publish  $npm_config_pre"
   },
   "author": "jeffery·chiang",
   "license": "MIT",
