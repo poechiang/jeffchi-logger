@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "2.3.4-alpha.0",
+  "version": "2.3.4-alpha.1",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
@@ -63,11 +63,6 @@
   "standard-version": {
     "scripts": {
       "prerelease": "git add -A ."
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
     }
   },
   "peerDependencies": {
