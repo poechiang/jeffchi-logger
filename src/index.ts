@@ -10,44 +10,57 @@ export const loggerWithTags = (tags: LogTags, options?: ILogOptions): ILogger =>
     tags = [tags];
   }
 
-  const { env, outputFile, ...mergedOptions } = { ...defOptions, ...(options || {}) };
+  const { env, outputFile, levels = [], ...mergedOptions } = { ...defOptions, ...(options || {}) };
 
   const debug = (...rest: any[]) => {
-    const prefix = buildLogPreffix(tags as string[], { level: LogLevel.DEBUG, ...mergedOptions });
-
+    const prefix = buildLogPreffix(tags as string[], { ...mergedOptions });
+    prefix.unshift(`[${LogLevel.DEBUG}]\t`);
     checkLogMode(env || LogMode.ALL) && console.debug(...prefix, ...rest);
-    LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
+    if (!levels?.length || levels.includes(LogLevel.DEBUG)) {
+      LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
+    }
   };
   const info = (...rest: any[]) => {
-    const prefix = buildLogPreffix(tags as string[], { level: LogLevel.INFO, ...mergedOptions });
-
+    const prefix = buildLogPreffix(tags as string[], { ...mergedOptions });
+    prefix.unshift(`[${LogLevel.INFO}]\t`);
     checkLogMode(env || LogMode.ALL) && console.info(...prefix, ...rest);
-    LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
+    if (!levels?.length || levels.includes(LogLevel.INFO)) {
+      LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
+    }
   };
   const log = (...rest: any[]) => {
     const prefix = buildLogPreffix(tags as string[], mergedOptions);
-
+    prefix.unshift(`[${LogLevel.LOG}]\t`);
     checkLogMode(env || LogMode.ALL) && console.log(...prefix, ...rest);
-    LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
+    if (!levels?.length || levels.includes(LogLevel.LOG)) {
+      LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
+    }
   };
   const warn = (...rest: any[]) => {
-    const prefix = buildLogPreffix(tags as string[], { level: LogLevel.WARN, ...mergedOptions });
+    const prefix = buildLogPreffix(tags as string[], { ...mergedOptions });
+    prefix.unshift(`[${LogLevel.WARN}]\t`);
     const { disableError } = mergedOptions;
     const out = disableError ? console.debug : console.warn;
     checkLogMode(env || LogMode.ALL) && out(...prefix, ...rest);
 
-    LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
+    if (!levels?.length || levels.includes(LogLevel.WARN)) {
+      LogCache.cache.push({ prefix, timestamp: Date.now(), data: [...rest] }, outputFile);
+    }
   };
 
   const error = (msg: string, cause?: Error) => {
-    const prefix = buildLogPreffix(tags as string[], { level: LogLevel.ERROR, ...mergedOptions });
-    const { ignoreThrow, disableError } = mergedOptions;
+    const prefix = buildLogPreffix(tags as string[], { ...mergedOptions });
+    prefix.unshift(`[${LogLevel.ERROR}]\t`);
+    const { disableThrow, ignoreThrow, disableError } = mergedOptions;
     const out = disableError ? console.debug : console.error;
     checkLogMode(env || LogMode.ALL) && out(...prefix, msg);
 
-    LogCache.cache.push({ prefix, timestamp: Date.now(), data: [msg] }, outputFile);
+    if (!levels?.length || levels.includes(LogLevel.ERROR)) {
+      LogCache.cache.push({ prefix, timestamp: Date.now(), data: [msg] }, outputFile);
+    }
 
-    if (!ignoreThrow) {
+    // ignoreTrow默认行为改为true
+    if (ignoreThrow === false || disableThrow === false) {
       throw new Error(msg, { cause });
     }
   };

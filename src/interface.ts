@@ -28,7 +28,7 @@ export interface ILogOptions {
   /** 日志级别
    * @default LogLevel.LOG
    */
-  level?: LogLevel;
+  levels?: LogLevel[];
   /**
    * 是否支持输出时间戳及时间戳格式
    *
@@ -38,7 +38,7 @@ export interface ILogOptions {
   date?: boolean | string;
   /**
    * 日志输出条件,默认全部输出
-   * @default 'all'
+   * @default LogMode.All
    */
   env?: LogMode;
   /** 禁用warn输出,避免在测试场景下影响测试结果
@@ -52,8 +52,14 @@ export interface ILogOptions {
   /** 调用error输出错误信息后,禁止继续抛出异常错误
    * @description
    * 调用error输出错误信息后,默认继续抛出异常错误,在测试环境下可以临地禁用,避免影响正常的测试流程
+   * @deprecated 由disabledThrow代替
    */
   ignoreThrow?: boolean;
+  /** 调用error输出错误信息后,禁止继续抛出异常错误
+   * @description
+   * 调用error输出错误信息后,默认继续抛出异常错误,在测试环境下可以临地禁用,避免影响正常的测试流程
+   */
+  disableThrow?: boolean;
   /**
    * 基于当前工程根目录下的日志输出文件
    *
