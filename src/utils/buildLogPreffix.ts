@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
-import { ILogOptions, LogLevel } from '../interface';
+import { ILogOptions } from '../interface';
 import { isString } from './type';
 
 export const buildLogPreffix = (tags: string[], options: ILogOptions) => {
-  const { level = LogLevel.LOG, date } = options;
+  const { date } = options;
   const prefix: any[] = [];
   if (tags.length) {
     prefix.unshift(tags.map((t) => `[${t.toUpperCase()}]`).join(' '));
@@ -18,6 +18,5 @@ export const buildLogPreffix = (tags: string[], options: ILogOptions) => {
     }
     prefix.unshift(dtStr);
   }
-  prefix.unshift(`[${level}]\t`);
   return prefix;
 };
