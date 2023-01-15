@@ -25,7 +25,7 @@
     "debug"
   ],
   "scripts": {
-    "clear": "rm -rf lib/ docs/",
+    "clear": "rm -rf lib/ docs/ build/",
     "doc": "typedoc --options typedoc.json",
     "dev": "rollup -c --watch",
     "build": "npm run clear && rollup -c",
@@ -33,6 +33,8 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json",
+    "push": "git add . && git commit -m",
+    "postpush": "git push",
     "prepublishOnly": "npm run test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add .",
@@ -86,6 +88,7 @@
     "rollup-plugin-dts": "^5.1.1",
     "rollup-plugin-esbuild": "^5.0.0",
     "rollup-plugin-typescript2": "^0.34.1",
+    "rollup-plugin-visualizer": "^5.9.0",
     "standard-version": "^9.5.0",
     "ts-jest": "^29.0.5",
     "tslib": "^2.4.1",
