@@ -147,13 +147,13 @@ export interface ILogOptions {
 | lint          | 依赖 tslint 对代码检查                                          |
 | test          | 依赖 jest 测试代码                                              |
 | push          | 用指定 message 提交代码并推送至远程                             |
-| version       | 生成新的 patch 版本号,同步至无程仓库打标分支                    |
-| release       | 生成新的 patch 版本号,推送远程仓库后,并发布版本至 npm 仓        |
+| version       | 生成新的批次版本号,同步至无程仓库打标分支                       |
+| release       | 生成新的批次版本号,推送远程仓库后,并发布版本至 npm 仓           |
 | release:alpha | 生成新的 alpha 版本号,推送远程仓库后,并发布 alpha 版本至 npm 仓 |
 | release:rc    | 生成新的 RC 版本号,推送远程仓库后,并发布 rc 版本至 npm 仓       |
 | release:major | 生成新的主版本号并推送远程仓库后,并发布版本至 npm 仓            |
 | release:minor | 生成新的次版本号并推送远程仓库后,并发布版本至 npm 仓            |
-| release:patch | 生成新的 patch 号并推送远程仓库后,并发布版本至 npm 仓           |
+| release:patch | 生成新的批次号并推送远程仓库后,并发布版本至 npm 仓              |
 
 ## License
 
