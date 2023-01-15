@@ -44,6 +44,8 @@
     "postrelease": "git push --follow-tags && npm publish",
     "release:alpha": "standard-version --prerelease alpha --release-as",
     "postrelease:alpha": "git push --follow-tags && npm publish --tag alpha",
+    "release:beta": "standard-version --prerelease beta --release-as",
+    "postrelease:beta": "git push --follow-tags && npm publish --tag beta",
     "release:rc": "standard-version --prerelease rc --release-as",
     "postrelease:rc": "git push --follow-tags && npm publish --tag rc"
   },
