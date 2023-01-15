@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
@@ -61,7 +61,7 @@
   ],
   "standard-version": {
     "scripts": {
-      "precommit": "git add ."
+      "precommit": "git add -A ."
     }
   },
   "config": {
