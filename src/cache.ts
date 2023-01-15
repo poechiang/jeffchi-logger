@@ -2,7 +2,8 @@ import { IFileHelper } from './interface';
 import { checkPlatform } from './utils/checkPlateform';
 
 import { format } from 'date-fns';
-import { debounce } from 'lodash';
+
+import { debounce } from './utils/debounce';
 import noop from './utils/noop';
 import { isArray } from './utils/type';
 
@@ -64,7 +65,7 @@ export class LogCache {
     });
   }
   /** 延迟写入并清空缓存 */
-  write = debounce((file) => this.flush(file), 1000);
+  write = debounce((file: any) => this.flush(file), 1000);
 
   /** 检查日志文件的路径,如果目录不存在,则创建,最好返回有效的日志文件,如果文件已存在,则追加日志数据 */
   #checkFolder(output: string): void {
