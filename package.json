@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "2.3.4-alpha.2",
+  "version": "2.3.4-alpha.3",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
@@ -38,14 +38,13 @@
     "postpush": "git push",
     "prepublishOnly": "npm run test main && npm run lint",
     "preversion": "npm run lint",
-    "version": "npm run format && git add .",
+    "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "prerelease": "npm run lint",
-    "release": "npm run format && git add . && standard-version --release-as",
+    "release": "standard-version -a --release-as",
     "postrelease": "git push --follow-tags && npm publish",
-    "release:alpha": "npm run format && git add . && standard-version --prerelease alpha --release-as",
+    "release:alpha": "standard-version -a --prerelease alpha --release-as",
     "postrelease:alpha": "git push --follow-tags && npm publish --tag alpha",
-    "release:rc": "npm run format && git add . && standard-version --prerelease rc --release-as",
+    "release:rc": "standard-version -a --prerelease rc --release-as",
     "postrelease:rc": "git push --follow-tags && npm publish --tag rc"
   },
   "author": "jeffery·chiang",
@@ -61,6 +60,11 @@
     "lib",
     "*.d.ts"
   ],
+  "standard-version": {
+    "scripts": {
+      "prerelease": "npm run format && git add -A ."
+    }
+  },
   "peerDependencies": {
     "date-fns": "^2.29.3"
   },
