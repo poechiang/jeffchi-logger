@@ -20,9 +20,10 @@ export enum LogLevel {
   ERROR = 'ERROR',
   DEBUG = 'DEBUG',
 }
+/** 日志标签 */
 export type LogTags = string | string[];
 
-/** 日志输入配置选项 */
+/** 日志配置选项 */
 export interface ILogOptions {
   /** 日志级别
    * @default LogLevel.LOG
