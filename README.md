@@ -19,8 +19,8 @@ A log print output javascript tool library that can be used at the front and bac
 - 支持服务端使用, 在服务端使用时默认写入 %root%/logs/yyyy-mm-dd.log 日志文件。
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
-| --- | --- | --- | --- | --- | 
-| Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Edge                                                                                                                                                                                                            | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                           |
 
 ## 安装
 
@@ -36,23 +36,22 @@ $ yarn add @jeffchi/logger
 
 如果你的网络环境不佳，推荐使用 [cnpm](https://github.com/cnpm/cnpm)。
 
-
 ## 用法
 
 ```javascript
 import { loggerWithTags } from '@jeffchi/logger';
 import { LogLevel, LogMode } from '@jeffchi/logger/lib/interface';
-const { debug,error,info,log,warn } = loggerWithTags(
-    'api',                                            // ['api','get'] 一个或多个tag
-    {
-        level: LogLevel.LOG,                          // 日志级别只有指定级别的日志才会输出至日志文件
-        date: 'MMM dd, yyyy HH:mm:ss.sss',            // 日志输出的时间戳格式,true表示使用默认utc IOS日期时间格式,false表示不输出时间戳
-        env: LogMode.ALL,                             // 环境参数,开发版本或生产版本,如果指定开发环境,则生产环境不输出任何内容,也不会写入到日志文件
-        disableWarn: false,                           // 禁用Warn输出,用debug代替,仅影响前端控制台和后端终端,不影响实际内容打印.在跑测试时应该启用,避免影响测试结果
-        disableError: false,                          // 禁用Error输出,用debug代替,仅影响前端控制台和后端终端,不影响实际内容打印.在跑测试时应该启用,避免影响测试结果
-        ignoreThrow: false,                           // 默认Error输出后,会抛出异常,从而打断后端执行流程,可指定true取消该行为,在跑测试时应该启用,避免影响测试测试流程
-        outputFile: 'logs/<yyyy-MM-dd>.log',          // 输出日志文件的位置,仅服务端使用时有效
-    }
+const { debug, error, info, log, warn } = loggerWithTags(
+  'api', // ['api','get'] 一个或多个tag
+  {
+    level: LogLevel.LOG, // 日志级别只有指定级别的日志才会输出至日志文件
+    date: 'MMM dd, yyyy HH:mm:ss.sss', // 日志输出的时间戳格式,true表示使用默认utc IOS日期时间格式,false表示不输出时间戳
+    env: LogMode.ALL, // 环境参数,开发版本或生产版本,如果指定开发环境,则生产环境不输出任何内容,也不会写入到日志文件
+    disableWarn: false, // 禁用Warn输出,用debug代替,仅影响前端控制台和后端终端,不影响实际内容打印.在跑测试时应该启用,避免影响测试结果
+    disableError: false, // 禁用Error输出,用debug代替,仅影响前端控制台和后端终端,不影响实际内容打印.在跑测试时应该启用,避免影响测试结果
+    ignoreThrow: false, // 默认Error输出后,会抛出异常,从而打断后端执行流程,可指定true取消该行为,在跑测试时应该启用,避免影响测试测试流程
+    outputFile: 'logs/<yyyy-MM-dd>.log', // 输出日志文件的位置,仅服务端使用时有效
+  },
 );
 ```
 
@@ -70,8 +69,8 @@ export type LogTags = string | string[];
 ```
 
 ### options
-```javascript
 
+```javascript
 /** 日志配置选项 */
 export interface ILogOptions {
   /** 日志级别
@@ -113,8 +112,27 @@ export interface ILogOptions {
    */
   outputFile?: string;
 }
+```
+
+## 测试
+
+`src/__test__` 目录下的 `*.spec.ts` 和 `*.test.ts` 是测试文件.
+
+- `*.spec.ts` 特定于指定版本的测试文件,需要切换到指定版本分支才能保证测试通过
+- `*.test.ts` 当前版本的测试文件
+
+> 测试基于 `ts-jest`,终端窗口通过指定参数,来运行特定的测试文件
+>
+> ```bash
+> npm run test 1.0.3  # 1.0.3的测试文件
+> npm run test main   # 当前测试文件
+> npm run test        # 所有测试文件
+> ```
+
+## License
+
+MIT
 
 ```
 
-## Lincence
-MIT
+```
