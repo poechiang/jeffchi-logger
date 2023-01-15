@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "1.1.8",
+  "version": "1.1.9-alpha.0",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
@@ -38,10 +38,10 @@
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
     "prerelease": "npm run lint && npm run format",
-    "release": "git add . && standard-version",
+    "release": "standard-version",
     "postrelease": "git push && git push --tags",
-    "release:alpha": "npm run release --prerelease alpha",
-    "release:rc": "npm run release  --prerelease rc",
+    "release:alpha": "standard-version --prerelease alpha",
+    "release:rc": "standard-version  --prerelease rc",
     "release:major": "npm run release -- --release-as major",
     "release:minor": "npm run release -- --release-as minor",
     "release:patch": "npm run release -- --release-as patch"
