@@ -10,10 +10,10 @@ on:
       - develop
 
 jobs:
-  check:
+  check:  
+    name: TypeScript report
     runs-on: ubuntu-latest
     steps:
-      - name: TypeScript report
-      - uses: fersilva16/ts-report-action@1.2.1
+    - uses: fersilva16/ts-report-action@1.2.1
 
   
