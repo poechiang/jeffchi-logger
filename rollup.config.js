@@ -8,6 +8,7 @@ import cleanup from 'rollup-plugin-cleanup';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 import typescript from 'rollup-plugin-typescript2';
+import { visualizer } from 'rollup-plugin-visualizer';
 const entries = ['src/index.ts'];
 
 const plugins = [
@@ -28,6 +29,12 @@ const plugins = [
   }),
   cleanup(),
   terser(),
+  visualizer({
+    filename: 'build/report.html',
+    open: true,
+    gzipSize: true,
+    brotliSize: true,
+  }),
 ];
 
 export default [

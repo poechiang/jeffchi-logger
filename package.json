@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "2.0.0",
+  "version": "2.7.0-rc.0",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
@@ -25,7 +25,7 @@
     "debug"
   ],
   "scripts": {
-    "clear": "rm -rf lib/ docs/",
+    "clear": "rm -rf lib/ docs/ build/",
     "doc": "typedoc --options typedoc.json",
     "dev": "rollup -c --watch",
     "build": "npm run clear && rollup -c",
@@ -33,22 +33,11 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json",
-    "prepublishOnly": "npm run test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add .",
-    "postversion": "git push && git push --tags",
-    "prerelease": "npm run lint && npm run format && git add .",
-    "release": "standard-version",
-    "postrelease": "git push --follow-tags && npm publish",
-    "prerelease:alpha": "npm run lint && npm run format",
-    "release:alpha": "standard-version --prerelease alpha",
-    "postrelease:alpha": "git push --follow-tags && npm publish --tag alpha",
-    "prerelease:rc": "npm run lint && npm run format",
-    "release:rc": "standard-version  --prerelease rc",
-    "postrelease:rc": "git push --follow-tags && npm publish --tag rc",
-    "release:major": "npm run release -- --release-as major",
-    "release:minor": "npm run release -- --release-as minor",
-    "release:patch": "npm run release -- --release-as patch"
+    "prepush": "git add .",
+    "push": "git commit -m",
+    "postpush": "git push",
+    "prepublishOnly": "npm run test main && npm run lint",
+    "release": "node release"
   },
   "author": "jeffery·chiang",
   "license": "MIT",
@@ -63,6 +52,11 @@
     "lib",
     "*.d.ts"
   ],
+  "standard-version": {
+    "scripts": {
+      "prerelease": "npm run lint && npm run format && git add -A ."
+    }
+  },
   "peerDependencies": {
     "date-fns": "^2.29.3"
   },
@@ -77,7 +71,11 @@
     "@rollup/plugin-typescript": "^11.0.0",
     "@types/jest": "^29.2.5",
     "@types/node": "^18.11.18",
+    "@types/standard-version": "^7.0.1",
     "babel-preset-env": "^1.7.0",
+    "commitizen": "^4.2.6",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
     "esbuild": "^0.17.0",
     "jest": "^29.3.1",
     "prettier": "^2.8.2",
@@ -86,6 +84,8 @@
     "rollup-plugin-dts": "^5.1.1",
     "rollup-plugin-esbuild": "^5.0.0",
     "rollup-plugin-typescript2": "^0.34.1",
+    "rollup-plugin-visualizer": "^5.9.0",
+    "shelljs": "^0.8.5",
     "standard-version": "^9.5.0",
     "ts-jest": "^29.0.5",
     "tslib": "^2.4.1",
