@@ -10,8 +10,7 @@ A log print output javascript tool library that can be used at the front and bac
 [![NPM Package](https://github.com/poechiang/jeffchi-logger/actions/workflows/npm-publish.yml/badge.svg?branch=main)](https://github.com/poechiang/jeffchi-logger/actions/workflows/npm-publish.yml)
 [![GIT Package](https://github.com/poechiang/jeffchi-logger/actions/workflows/npm-publish-github-packages.yml/badge.svg?branch=main&event=pull_request)](https://github.com/poechiang/jeffchi-logger/actions/workflows/npm-publish-github-packages.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![TS Report](https://github.com/poechiang/jeffchi-logger/actions/workflows/ts-report.yml/badge.svg)](https://github.com/poechiang/jeffchi-logger/actions/workflows/ts-report.yml)
-
+[![JEST Report](https://github.com/poechiang/jeffchi-logger/actions/workflows/jest-report.yml/badge.svg)](https://github.com/poechiang/jeffchi-logger/actions/workflows/jest-report.yml)
 </div>
 
 ## 支持环境
