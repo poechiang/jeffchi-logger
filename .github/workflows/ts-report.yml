@@ -12,8 +12,10 @@ on:
 jobs:
   check:  
     name: TypeScript report
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     - uses: fersilva16/ts-report-action@1.2.1
+      with:
+        node-version: '16.19.0'
 
   
