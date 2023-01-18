@@ -1,7 +1,7 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
-name: TS Report
+name: JEST Report
 
 on:
   push:
@@ -11,11 +11,8 @@ on:
 
 jobs:
   check:  
-    name: TypeScript report
+    name: report
     runs-on: macos-latest
     steps:
-    - uses: fersilva16/ts-report-action@1.2.1
-      with:
-        node-version: '16.19.0'
-
+    - uses: RedaktionsNetzwerk-Deutschland/action-jest-reporter@v1.0.0
   
