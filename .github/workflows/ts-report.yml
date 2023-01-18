@@ -1,0 +1,5 @@
+ name: TypeScript report
+  # You may pin to the exact commit or the version.
+  uses: fersilva16/ts-report-action@1.2.1
+
+  
