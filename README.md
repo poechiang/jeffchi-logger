@@ -6,8 +6,7 @@
 
 A log print output javascript tool library that can be used at the front and back ends
 
-[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg?logo=jest)](https://github.com/facebook/jest)
-![test](https://github.com/vueComponent/ant-design-vue/workflows/test/badge.svg)
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg?logo=jest)](https://github.com/facebook/jest)[![Node.js Package](https://github.com/poechiang/jeffchi-logger/actions/workflows/npm-publish.yml/badge.svg?branch=main)](https://github.com/poechiang/jeffchi-logger/actions/workflows/npm-publish.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![actions-cool](https://img.shields.io/badge/using-actions--cool-blue?style=flat-square)](https://github.com/actions-cool)
 
