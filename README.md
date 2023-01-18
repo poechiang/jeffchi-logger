@@ -1,5 +1,5 @@
-<h1 align="center">
-  <a href="https://github.com/poechiang/jeffchi-logger#readme" target="_blank">jeffchi-logger</a>
+<h1 >
+  <a href="https://github.com/poechiang/jeffchi-logger#readme" target="_blank">@JeffChi/Logger</a>
 </h1>
 
 <div align="center">
