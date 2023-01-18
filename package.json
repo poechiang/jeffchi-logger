@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "2.5.1-alpha.0",
+  "version": "2.7.0-rc.0",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
@@ -37,13 +37,7 @@
     "push": "git commit -m",
     "postpush": "git push",
     "prepublishOnly": "npm run test main && npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags",
-    "release": "cross-env-shell standard-version --prerelease $npm_config_pre --release-as ",
-    "postrelease": "git push --follow-tags && npm publish --tag $npm_config_pre",
-    "release:all": "cross-env-shell standard-version -a  --prerelease  %npm_config_pre% --release-as ",
-    "postrelease:all": "git push --follow-tags && npm publish  $npm_config_pre"
+    "release": "node release"
   },
   "author": "jeffery·chiang",
   "license": "MIT",
@@ -60,7 +54,7 @@
   ],
   "standard-version": {
     "scripts": {
-      "prerelease": "npm run format && git add -A ."
+      "prerelease": "npm run lint && npm run format && git add -A ."
     }
   },
   "peerDependencies": {
@@ -77,6 +71,7 @@
     "@rollup/plugin-typescript": "^11.0.0",
     "@types/jest": "^29.2.5",
     "@types/node": "^18.11.18",
+    "@types/standard-version": "^7.0.1",
     "babel-preset-env": "^1.7.0",
     "commitizen": "^4.2.6",
     "cross-env": "^7.0.3",
@@ -90,6 +85,7 @@
     "rollup-plugin-esbuild": "^5.0.0",
     "rollup-plugin-typescript2": "^0.34.1",
     "rollup-plugin-visualizer": "^5.9.0",
+    "shelljs": "^0.8.5",
     "standard-version": "^9.5.0",
     "ts-jest": "^29.0.5",
     "tslib": "^2.4.1",
