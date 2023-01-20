@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.0-rc.1](https://github.com/poechiang/jeffchi-logger/compare/v2.9.0-rc.0...v2.9.0-rc.1) (2023-01-20)
+
+## [2.9.0-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v2.8.0...v2.9.0-rc.0) (2023-01-20)
+
+## [2.8.0](https://github.com/poechiang/jeffchi-logger/compare/v2.7.0...v2.8.0) (2023-01-20)
+
 ## [2.7.0](https://github.com/poechiang/jeffchi-logger/compare/v2.5.1-alpha.0...v2.7.0) (2023-01-20)
 
 ## [2.7.0-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v2.6.0...v2.7.0-rc.0) (2023-01-18)
