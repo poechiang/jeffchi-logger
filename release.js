@@ -25,11 +25,11 @@ const options = {
 };
 
 const scripts = {};
-if(args.otp){
-  scripts.posttag= `git push --follow-tags && npm publish ${prerelease ? '--tag ' + prerelease : ''} ${
+if (args.otp) {
+  scripts.posttag = `git push --follow-tags && npm publish ${prerelease ? '--tag ' + prerelease : ''} ${
     args.dryRun ? '--dry-run' : ''
-  } --otp${args.otp}`,
-};
+  } --otp${args.otp}`;
+}
 if (options.commitAll) {
   scripts.prerelease = 'npm run format && git add -A .';
 }
