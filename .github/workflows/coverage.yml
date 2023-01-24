@@ -5,19 +5,17 @@ name: Coverage Check
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: ['develop']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Coverage check
-      uses: slavcodev/coverage-monitor-action@v1
-      with:
-        github_token:  ${{ secrets.GITHUB_TOKEN }}
-        coverage_path:  ./coverage/rpt
-        
+      - name: Coverage check
+        uses: slavcodev/coverage-monitor-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          coverage_path: ./rpt/coverage.json
