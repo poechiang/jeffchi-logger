@@ -19,5 +19,5 @@ jobs:
       uses: devmasx/coverage-check-action@v1.2.0
       with:
         type: icov
-        token: {{securet.GITHUB_TOCKEN}}
+        token: ${{ secrets.GITHUB_TOKEN }}
         result_path: ./rpt
