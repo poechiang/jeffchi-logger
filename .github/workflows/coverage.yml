@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Coverage check
-      uses: devmasx/coverage-check-action@v1.2.0
+      uses: slavcodev/coverage-monitor-action@v1
       with:
         github_token:  ${{ secrets.GITHUB_TOKEN }}
         coverage_path:  ./coverage/rpt
