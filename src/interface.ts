@@ -5,8 +5,17 @@ export type PathLike = string | Buffer | URL;
  * @default LogMode.ALL
  */
 export enum LogMode {
+  /**
+   * 默认,所有模式下都会打印输出
+   */
   ALL = 'all',
+  /**
+   * 仅开发模式启用日志打印输出
+   */
   PRODUCTION = 'production',
+  /**
+   * 仅生产模式下启用日志打印输出
+   */
   DEVELOPMENET = 'development',
   NONE = 'none',
 }
