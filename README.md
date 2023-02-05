@@ -11,6 +11,7 @@ A log print output javascript tool library that can be used at the front and bac
 [![GIT Package](https://github.com/poechiang/jeffchi-logger/actions/workflows/npm-publish-github-packages.yml/badge.svg?branch=main&event=pull_request)](https://github.com/poechiang/jeffchi-logger/actions/workflows/npm-publish-github-packages.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![JEST Report](https://github.com/poechiang/jeffchi-logger/actions/workflows/jest-report.yml/badge.svg)](https://github.com/poechiang/jeffchi-logger/actions/workflows/jest-report.yml)
+
 </div>
 
 ## 支持环境
@@ -39,7 +40,7 @@ $ yarn add @jeffchi/logger
 ## 用法
 
 ```javascript
-import { loggerWithTags } from '@jeffchi/logger';
+import { withTags, loggerWithTags } from '@jeffchi/logger';
 import { LogLevel, LogMode } from '@jeffchi/logger/lib/interface';
 const { debug, error, info, log, warn } = loggerWithTags(
   'api', // ['api','get'] 一个或多个tag
@@ -109,8 +110,10 @@ export interface ILogOptions {
    * 浏览器环境:自动忽略该选项;
    *
    * node环境下默认 logs/xxx.log
+   * @deprecated 由output代替
    */
   outputFile?: string;
+  output?: string | LogOutputOptions;
 }
 ```
 

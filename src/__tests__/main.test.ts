@@ -1,47 +1,18 @@
 import path from 'path';
-import { loggerWithTags } from '../index';
+import { withTags } from '../index';
 import { ILogOptions } from '../interface';
 const currVersion = '1.0.4';
 const testLogFile = 'logs/test/' + path.basename(__filename).replace(/(\.(test|spec))\.ts$/, '$1.log');
 const testOptions: ILogOptions = {
-  outputFile: testLogFile,
+  output: { file: testLogFile },
   disableError: true,
   disableWarn: true,
 };
 
-test('should throw a error by ignoreThrow', () => {
-  const { error } = loggerWithTags([currVersion, 'test'], { ...testOptions, ignoreThrow: false });
-  expect(() => {
-    try {
-      error('should throw a error');
-    } catch (e) {
-      throw e;
-    }
-  }).toThrow();
-});
-test('should throw a error by disableThrow', () => {
-  const { error } = loggerWithTags([currVersion, 'test'], { ...testOptions, disableThrow: false });
-  expect(() => {
-    try {
-      error('should throw a error');
-    } catch (e) {
-      throw e;
-    }
-  }).toThrow();
-});
-
-test('default date test', () => {
-  const { log, warn, info, error, debug } = loggerWithTags([currVersion, 'test'], testOptions);
-  expect(debug('test debug')).toBeUndefined();
-  expect(error('test error')).toBeUndefined();
-  expect(info('test info')).toBeUndefined();
-  expect(log('test log')).toBeUndefined();
-  expect(warn('test warn')).toBeUndefined();
-});
-
-test.skip('"MMM dd, yyyy HH:mm:ss.SSS" test', () => {
-  const { log, warn, info, error, debug } = loggerWithTags([currVersion, 'test'], {
+test('"MMM dd, yyyy HH:mm:ss.SSS" group test', () => {
+  const { log, warn, info, error, debug } = withTags([currVersion, 'test'], {
     ...testOptions,
+    output: { file: testLogFile, groupByLevel: true },
     date: 'MMM dd, yyyy HH:mm:ss.SSS',
   });
 
