@@ -17,7 +17,6 @@ if (args.alpha) {
 } else if (args.rc) {
   prerelease = 'rc';
 }
-console.log(11111, args, prerelease);
 const options = {
   releaseAs: version,
   prerelease,
@@ -29,7 +28,7 @@ const scripts = {};
 if (args.otp) {
   scripts.posttag = `git push --follow-tags && npm publish ${prerelease ? '--tag ' + prerelease : ''} ${
     args.dryRun ? '--dry-run' : ''
-  } --otp${args.otp}`;
+  } --otp ${args.otp}`;
 } else {
   scripts.posttag = `git push --follow-tags`;
 }
