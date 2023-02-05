@@ -5,6 +5,13 @@ import { buildLogPreffix } from './utils/buildLogPreffix';
 import { checkLogMode } from './utils/checkLogMode';
 import { isArray } from './utils/type';
 
+/**
+ * 出口方法,
+ * @param tags 标签或标签列表,统一转换为大写输出
+ * @param options ILogOptions
+ * @returns
+ * @deprecated 由 withTags代替
+ */
 export const loggerWithTags = (tags: LogTags, options?: ILogOptions): ILogger => {
   if (!isArray(tags)) {
     tags = [tags];
@@ -66,3 +73,8 @@ export const loggerWithTags = (tags: LogTags, options?: ILogOptions): ILogger =>
   };
   return { debug, info, log, warn, error };
 };
+
+/**
+ * 新增总出口方法,原方法loggerWithTags废弃
+ */
+export const withTags = loggerWithTags;
