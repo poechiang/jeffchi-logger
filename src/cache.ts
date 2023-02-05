@@ -1,4 +1,4 @@
-import { IFileHelper } from './interface';
+import { IFileHelper, LogOutputOptions } from './interface';
 import { checkPlatform } from './utils/checkPlateform';
 
 import { format } from 'date-fns';
@@ -10,13 +10,16 @@ import { isArray } from './utils/type';
 export interface LogContent {
   prefix?: string[];
   data: any[];
-  timestamp: number;
+}
+export interface ILogCacheMapItem {
+  Set: Set<any>;
+  writer?: any;
 }
 /** 单例模式的缓存对像 */
 export class LogCache {
   static readonly #cache = new LogCache();
   lastWrite: number = Date.now();
-  #map: Map<string, Set<any>>;
+  #map: Map<string, ILogCacheMapItem>;
   #fs?: IFileHelper | null;
   static get cache(): LogCache {
     return LogCache.#cache;
@@ -27,26 +30,40 @@ export class LogCache {
   }
 
   private constructor() {
-    this.#map = new Map<string, Set<any>>();
+    this.#map = new Map<string, ILogCacheMapItem>();
 
     checkPlatform().then((fs) => {
       this.#fs = fs;
     });
   }
 
-  push(data: LogContent, file?: string) {
-    file = file || this.defaultLogFile;
+  push(data: LogContent, output: LogOutputOptions) {
+    let file = output.file || this.defaultLogFile;
+
+    if (output.groupByLevel) {
+      // 日志文件如需分组,则修改日志文件名
+      const prefix = data.prefix || [];
+      const lvl = prefix.splice(1, 1)?.[0];
+
+      file = file.replace(/\.log$/, `.${lvl.replace(/\[|\]/g, '').toLowerCase()}.log`);
+      data.prefix = prefix;
+    }
     let set = this.#map.get(file);
     if (!set) {
-      set = new Set<any>();
+      set = {
+        Set: new Set<any>(),
+
+        /** 延迟写入并清空缓存 */
+        writer: debounce((f: any) => this.flush(f), 1000),
+      };
       this.#map.set(file, set);
     }
     const now = Date.now();
 
-    if (set.add(data).size > 1000 || now - this.lastWrite > 30000) {
+    if (set.Set.add(data).size > 1000 || now - this.lastWrite > 30000) {
       this.flush(file);
     } else {
-      this.write(file);
+      set.writer(file);
     }
   }
 
@@ -57,15 +74,13 @@ export class LogCache {
     this.#map.forEach((set, key) => {
       if (!set) return;
       if ((file === null && key === this.defaultLogFile) || !file || key === file) {
-        const list = Array.from<LogContent>(set);
-        set.clear();
+        const list = Array.from<LogContent>(set.Set);
+        set.Set.clear();
         this.#writeLogFile(key, list);
         this.lastWrite = Date.now();
       }
     });
   }
-  /** 延迟写入并清空缓存 */
-  write = debounce((file: any) => this.flush(file), 1000);
 
   /** 检查日志文件的路径,如果目录不存在,则创建,最好返回有效的日志文件,如果文件已存在,则追加日志数据 */
   #checkFolder(output: string): void {
@@ -81,8 +96,9 @@ export class LogCache {
     if (!isArray(content)) {
       content = [content];
     }
-
-    outputFile = outputFile || this.defaultLogFile;
+    if (!outputFile) {
+      throw new Error('output log file is missed');
+    }
     this.#checkFolder(outputFile);
 
     const { writeFile } = this.#fs || {};

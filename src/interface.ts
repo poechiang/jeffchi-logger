@@ -5,8 +5,17 @@ export type PathLike = string | Buffer | URL;
  * @default LogMode.ALL
  */
 export enum LogMode {
+  /**
+   * 默认,所有模式下都会打印输出
+   */
   ALL = 'all',
+  /**
+   * 仅开发模式启用日志打印输出
+   */
   PRODUCTION = 'production',
+  /**
+   * 仅生产模式下启用日志打印输出
+   */
   DEVELOPMENET = 'development',
   NONE = 'none',
 }
@@ -22,7 +31,16 @@ export enum LogLevel {
 }
 /** 日志标签 */
 export type LogTags = string | string[];
-
+export type LogOutputOptions = {
+  /**
+   * 基于当前工程根目录下的日志输出文件
+   */
+  file: string;
+  /**
+   * 日志文件是否按日志级别分组,如果设置分组,则在日志文件中不在输出表示级别的tag:[LOG][INFO][WARN][ERROR]等,日志文件名称对应添加*.(log|info|warn|error).log
+   */
+  groupByLevel?: boolean;
+};
 /** 日志配置选项 */
 export interface ILogOptions {
   /** 日志级别
@@ -67,8 +85,10 @@ export interface ILogOptions {
    * 浏览器环境:自动忽略该选项;
    *
    * node环境下默认 logs/xxx.log
+   * @deprecated 由output代替
    */
   outputFile?: string;
+  output?: string | LogOutputOptions;
 }
 
 export interface IFileHelper {
