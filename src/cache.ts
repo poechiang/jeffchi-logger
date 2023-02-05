@@ -54,7 +54,7 @@ export class LogCache {
         Set: new Set<any>(),
 
         /** 延迟写入并清空缓存 */
-        writer: debounce((file: any) => this.flush(file), 1000),
+        writer: debounce((f: any) => this.flush(f), 1000),
       };
       this.#map.set(file, set);
     }

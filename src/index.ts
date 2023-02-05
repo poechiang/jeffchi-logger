@@ -17,8 +17,8 @@ export const loggerWithTags = (tags: LogTags, options?: ILogOptions): ILogger =>
     tags = [tags];
   }
 
-  const { env, outputFile, output: out, levels = [], ...mergedOptions } = { ...defOptions, ...(options || {}) };
-  const output = (isString(out) ? { file: out } : out || { file: outputFile }) as LogOutputOptions;
+  const { env, outputFile, output: _out, levels = [], ...mergedOptions } = { ...defOptions, ...(options || {}) };
+  const output = (isString(_out) ? { file: _out } : _out || { file: outputFile }) as LogOutputOptions;
   const debug = (...rest: any[]) => {
     const [date, ...prefix] = buildLogPreffix(tags as string[], { ...mergedOptions });
     const prefixList = [date, `[${LogLevel.DEBUG}]`, ...prefix];
