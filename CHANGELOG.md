@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [3.0.0](https://github.com/poechiang/jeffchi-logger/compare/v2.7.0...v3.0.0) (2023-02-05)
 
+## [3.0.0](https://github.com/poechiang/jeffchi-logger/compare/v2.7.0...v3.0.0) (2023-02-05)
+
 ## [2.9.0-rc.1](https://github.com/poechiang/jeffchi-logger/compare/v2.9.0-rc.0...v2.9.0-rc.1) (2023-01-20)
 
 ## [2.9.0-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v2.8.0...v2.9.0-rc.0) (2023-01-20)
