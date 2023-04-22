@@ -6,8 +6,10 @@ import { IFileHelper } from '../interface';
  */
 export const checkPlatform = (): Promise<IFileHelper | null> => {
   if (typeof window !== 'undefined') {
+    console.log(123123, window);
     return Promise.resolve(null);
   }
+  console.log(456456, window);
   return Promise.all([import('fs'), import('path')])
     .then(([fs, path]) => {
       // 如果fs为空则判定当前为浏览器环境
