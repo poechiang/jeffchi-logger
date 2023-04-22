@@ -5,18 +5,20 @@ import { IFileHelper } from '../interface';
  * @returns fs
  */
 export const checkPlatform = (): Promise<IFileHelper | null> =>
-  Promise.all([import('fs'), import('path')]).then(([fs, path]) => {
-    // 如果fs为空则判定当前为浏览器环境
-    if (!fs) return null;
-    const { existsSync, mkdirSync, writeFile } = fs;
-    const { sep, resolve, join, dirname } = path;
-    return {
-      existsSync,
-      mkdirSync,
-      writeFile,
-      join,
-      sep,
-      resolve,
-      dirname,
-    };
-  });
+  Promise.all([import('fs'), import('path')])
+    .then(([fs, path]) => {
+      // 如果fs为空则判定当前为浏览器环境
+      if (!fs) return null;
+      const { existsSync, mkdirSync, writeFile } = fs;
+      const { sep, resolve, join, dirname } = path;
+      return {
+        existsSync,
+        mkdirSync,
+        writeFile,
+        join,
+        sep,
+        resolve,
+        dirname,
+      };
+    })
+    .catch(() => null);

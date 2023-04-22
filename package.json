@@ -37,7 +37,7 @@
     "push": "git commit -m",
     "postpush": "git push",
     "prepublishOnly": "npm run test main && npm run lint",
-    "publish": "git push --follow-tags origin develop && npm pushlish",
+    "publish": "git push --follow-tags origin develop && npm publish",
     "release": "node release"
   },
   "author": "jeffery·chiang",
