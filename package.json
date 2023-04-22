@@ -3,6 +3,7 @@
   "version": "3.0.1-alpha.5",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
+  "browser": "lib/index.cjs",
   "types": "lib/index.d.ts",
   "type": "module",
   "description": "A log print output javascript tool library that can be used at the front and back ends",
