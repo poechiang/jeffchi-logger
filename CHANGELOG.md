@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1-alpha.6](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.5...v3.0.1-alpha.6) (2023-04-22)
+
 ### [3.0.1-alpha.5](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.4...v3.0.1-alpha.5) (2023-04-22)
 
 ### [3.0.1-alpha.4](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.3...v3.0.1-alpha.4) (2023-04-22)
