@@ -33,7 +33,7 @@ if (args.otp) {
   scripts.posttag = `git push --follow-tags`;
 }
 if (options.commitAll) {
-  scripts.prerelease = 'npm run format && git add -A .';
+  scripts.prerelease = 'git add -A .';
 }
 
 options.scripts = scripts;
