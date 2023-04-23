@@ -28,11 +28,11 @@ A log print output javascript tool library that can be used at the front and bac
 ### 使用 npm 或 yarn 安装
 
 ```bash
-$ npm install @jeffchi/logger --save
+npm install @jeffchi/logger --save
 ```
 
 ```bash
-$ yarn add @jeffchi/logger
+yarn add @jeffchi/logger
 ```
 
 如果你的网络环境不佳，推荐使用 [cnpm](https://github.com/cnpm/cnpm)。
@@ -140,17 +140,111 @@ export interface ILogOptions {
   npm run name
 ```
 
-| 脚本名称                                                                                                  | 说明                                                                                                                                                                                                                                                                                              |
-| --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| clear                                                                                                     | 清理 `lib/` `docs/` `build/`临时目录                                                                                                                                                                                                                                                              |
-| doc                                                                                                       | 利用 typedoc 生成 api 文档,位于`docs/`目录下                                                                                                                                                                                                                                                      |
-| dev                                                                                                       | 启动开发模式                                                                                                                                                                                                                                                                                      |
-| build                                                                                                     | 执行构建过程                                                                                                                                                                                                                                                                                      |
-| format                                                                                                    | 利用 prettier 格式化                                                                                                                                                                                                                                                                              |
-| lint                                                                                                      | 依赖 tslint 对代码检查                                                                                                                                                                                                                                                                            |
-| test                                                                                                      | 依赖 jest 测试代码                                                                                                                                                                                                                                                                                |
-| push                                                                                                      | 用指定 message 提交代码并推送至远程                                                                                                                                                                                                                                                               |
-| release [`<verson>`\|`patch`\|`minor`\|`major`] -- [`--alpha`\|`--beta`\|`--rc`] [`--all`] [`--otp code`] | 生成新的 `主`\|`次`\|`批` 版本号,推送远程仓库后,并发布至 npm 仓 <blockquote><li> --alpha: 预发布内部版本</li><li> --beta: 预发布公测版本</li><li> -rc: 预发布候选版本</li><li> -all: 提交全部修改</li><li> -otp `<code>`: 如果指定一次性口令,则直接发布到 npm 中心仓,否则不发布</li></blockquote> |
+| 脚本名称                                                                                               | 说明                                                                                                                                                                                                                                                                                                   |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| clear                                                                                                  | 清理 `lib/` `docs/` `build/`临时目录                                                                                                                                                                                                                                                                   |
+| doc                                                                                                    | 利用 typedoc 生成 api 文档,位于`docs/`目录下                                                                                                                                                                                                                                                           |
+| dev                                                                                                    | 启动开发模式                                                                                                                                                                                                                                                                                           |
+| build                                                                                                  | 执行构建过程                                                                                                                                                                                                                                                                                           |
+| format                                                                                                 | 利用 prettier 格式化                                                                                                                                                                                                                                                                                   |
+| lint                                                                                                   | 依赖 tslint 对代码检查                                                                                                                                                                                                                                                                                 |
+| test                                                                                                   | 依赖 jest 测试代码                                                                                                                                                                                                                                                                                     |
+| push                                                                                                   | 用指定 message 提交代码并推送至远程                                                                                                                                                                                                                                                                    |
+| release [`<verson>`\|`patch`\|`minor`\|`major`] -- [`--alpha`\|`--beta`\|`--rc`] [`--all`] [--dry-run] | 生成新的 `主`\|`次`\|`批` 版本号,推送远程仓库后,并发布至 npm 仓 <blockquote><li> --alpha: 预发布内部版本</li><li> --beta: 预发布公测版本</li><li> --rc: 预发布候选版本</li><li> --all: 提交全部修改</li><li> --dry-runn: 预览操作,指定后不会执行真实的发布,否则后续需要提供 opt 口令</li></blockquote> |
+
+## 已知问题及解决方案
+
+### 1 Webpack5 前端项目报错
+
+```bash
+Failed to compile.
+
+Module not found: Error: Can't resolve 'fs' in '/Users/jeff/Desktop/console-x/node_modules/@jeffchi/logger/lib'
+ERROR in ./node_modules/@jeffchi/logger/lib/index.mjs 1252:133-145
+Module not found: Error: Can't resolve 'fs' in '/Users/jeff/Desktop/console-x/node_modules/@jeffchi/logger/lib'
+
+ERROR in ./node_modules/@jeffchi/logger/lib/index.mjs 1252:147-161
+Module not found: Error: Can't resolve 'path' in '/Users/jeff/Desktop/console-x/node_modules/@jeffchi/logger/lib'
+
+BREAKING CHANGE: webpack < 5 used to include polyfills for node.js core modules by default.
+This is no longer the case. Verify if you need this module and configure a polyfill for it.
+
+If you want to include a polyfill, you need to:
+        - add a fallback 'resolve.fallback: { "path": require.resolve("path-browserify") }'
+        - install 'path-browserify'
+If you don't want to include a polyfill, you can use an empty module like this:
+        resolve.fallback: { "path": false }
+
+webpack compiled with 2 errors
+No issues found.
+```
+
+#### 原因
+
+`@jeffchi/logger` 是一个前后端能用的 npm 库,在后端使用时需要写入日志文件,需要依赖于`fs` 和 `path` 两个 node 核心库,在前端,则不需要. 早前 webpack4 会在构建 bundle 为 node.js 核心库附加庞大的 polyfills,对于前端项目,大部分的 polyfills 都不是必须的,webpack5 现在要停止这项工作,在模块构建时不再自动引入 polyfills,以减小打包体积.
+
+#### 解决方案
+
+##### ~~1. 安装 path-browserify~~
+
+```bash
+npm install path-browserify --save
+# or
+yarn add path-browserify
+```
+
+> 因为前端项目不需要写放日志文件,所以此处可以跳过这一步
+
+##### 2. 配置 webpack
+
+```js
+// webpack.config.js
+resolve: {
+  fallback: {
+    // 如果需要,则引入path-browserify
+    // path: require.resolve("path-browserify"),
+    path: false;
+  }
+}
+```
+
+###### 2.1craco
+
+如果你使用的是 craco:
+
+```js
+module.exports = {
+  webpack: {
+    alias: {
+      // alias...
+    },
+
+    configure: (config) => {
+      const { resolve = {} } = config;
+      resolve.fallback = { ...(resolve.fallback || {}), fs: false, path: false };
+      resolve.fallback.path = false;
+      return { ...config, resolve };
+    },
+  },
+  plugins: [
+    // plugins...
+  ],
+};
+```
+
+##### 3.修改 package.json
+
+```json
+"browser":{
+  "path":false,
+  "fs":false
+},
+"dependencies":{
+  // ...
+}
+```
+
+> 此步骤非必须
 
 ## License
 

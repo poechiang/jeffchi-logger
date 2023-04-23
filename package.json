@@ -1,8 +1,9 @@
 {
   "name": "@jeffchi/logger",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
+  "browser": "lib/index.cjs",
   "types": "lib/index.d.ts",
   "type": "module",
   "description": "A log print output javascript tool library that can be used at the front and back ends",
@@ -37,6 +38,7 @@
     "push": "git commit -m",
     "postpush": "git push",
     "prepublishOnly": "npm run test main && npm run lint",
+    "publish": "git push --follow-tags origin develop && npm publish",
     "release": "node release"
   },
   "author": "jeffery·chiang",
@@ -53,6 +55,63 @@
     "*.d.ts"
   ],
   "standard-version": {
+    "types": [
+      {
+        "type": "feat",
+        "section": "✨ Features | 新功能"
+      },
+      {
+        "type": "fix",
+        "section": "🐛 Bug Fixes | Bug 修复"
+      },
+      {
+        "type": "init",
+        "section": "🎉 Init | 初始化"
+      },
+      {
+        "type": "docs",
+        "section": "✏️ Documentation | 文档"
+      },
+      {
+        "type": "style",
+        "section": "💄 Styles | 风格"
+      },
+      {
+        "type": "refactor",
+        "section": "♻️ Code Refactoring | 代码重构"
+      },
+      {
+        "type": "perf",
+        "section": "⚡ Performance Improvements | 性能优化"
+      },
+      {
+        "type": "test",
+        "section": "✅ Tests | 测试"
+      },
+      {
+        "type": "revert",
+        "section": "⏪ Revert | 回退",
+        "hidden": true
+      },
+      {
+        "type": "build",
+        "section": "📦‍ Build System | 打包构建"
+      },
+      {
+        "type": "chore",
+        "section": "🚀 Chore | 构建/工程依赖/工具"
+      },
+      {
+        "type": "ci",
+        "section": "👷 Continuous Integration | CI 配置"
+      }
+    ],
+    "skip": {
+      "bump": true,
+      "changelog": true,
+      "commit": true,
+      "tag": true
+    },
     "scripts": {
       "prerelease": "npm run lint && npm run format && git add -A ."
     }

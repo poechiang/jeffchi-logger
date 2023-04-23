@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/poechiang/jeffchi-logger/compare/v3.1.0-rc.0...v3.1.0) (2023-04-23)
+
+## [3.1.0-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.6...v3.1.0-rc.0) (2023-04-23)
+
+### [3.0.1-alpha.6](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.5...v3.0.1-alpha.6) (2023-04-22)
+
+### [3.0.1-alpha.5](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.4...v3.0.1-alpha.5) (2023-04-22)
+
+### [3.0.1-alpha.4](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.3...v3.0.1-alpha.4) (2023-04-22)
+
+### [3.0.1-alpha.3](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.2...v3.0.1-alpha.3) (2023-04-22)
+
+### [3.0.1-alpha.2](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.1...v3.0.1-alpha.2) (2023-04-22)
+
+### [3.0.1-alpha.1](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.0...v3.0.1-alpha.1) (2023-04-22)
+
+### [3.0.1-alpha.0](https://github.com/poechiang/jeffchi-logger/compare/v2.7.0...v3.0.1-alpha.0) (2023-04-22)
+
 ## [3.0.0](https://github.com/poechiang/jeffchi-logger/compare/v2.7.0...v3.0.0) (2023-02-05)
 
 ## [3.0.0](https://github.com/poechiang/jeffchi-logger/compare/v2.7.0...v3.0.0) (2023-02-05)
