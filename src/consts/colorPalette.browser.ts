@@ -1,4 +1,5 @@
 export const timestamp = '#9e9e9e';
+
 export const ASSERT = '#353535';
 export const DEBUG = '#353535';
 export const LOG = '#353535';
@@ -13,8 +14,6 @@ export const boolean = '#9c27b0';
  * empty: null or undefined
  */
 export const empty = '#bf360c';
-
 export const date = '#353535';
-
 export const func = '#353535';
 export const obj = '#353535';

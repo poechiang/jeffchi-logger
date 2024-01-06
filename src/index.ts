@@ -1,8 +1,8 @@
 import { LogCache } from './cache';
 import { defOptions } from './consts/defOptions';
-import { format } from './format';
 import { ILogger, ILogOptions, LogLevel, LogMode, LogOutputOptions, LogTags } from './interface';
 import { checkEnv } from './utils/checkEnv';
+import { format } from './utils/format';
 import { isString } from './utils/type';
 
 /**
@@ -21,12 +21,13 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
     const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
     const rest = formatDataList.reduce((list, [_, ...rest]) => [...list, rest], []) as any[];
 
-    checkEnv(env) && console.assert(value, fmtStr, ...rest.reduce((list, arg) => [...list, ...arg], []));
+    console.log(111, tags, args, formatDataList, fmtStr, rest);
+    checkEnv(env) && console.assert(value, rest.reduce((list, arg) => [...list, ...arg], []).join(' '));
     if (!value && (!levels?.length || levels.includes(LogLevel.ASSERT))) {
       LogCache.cache.push(
         {
           level: LogLevel.ASSERT,
-          data: [...rest.reduce((list, arg) => [...list, arg[0]], [])],
+          data: [...rest.reduce((list, arg) => [...list, arg[1]], [])],
         },
         logOutputOptions,
       );
@@ -97,7 +98,7 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
     }
   };
   const warn = (...args: any[]) => {
-    const formatDataList = format(LogLevel.LOG, { tags, args }, options);
+    const formatDataList = format(LogLevel.WARN, { tags, args }, options);
 
     const fmtStr = formatDataList.reduce((str, [fmt, ...rest]) => str + fmt, '');
     const rest = formatDataList.reduce((list, [_, ...rest]) => [...list, rest], []) as any[];
@@ -118,7 +119,7 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
   };
 
   const error = (msg: string, cause?: Error) => {
-    const formatDataList = format(LogLevel.LOG, { tags, args: [msg, cause] }, options);
+    const formatDataList = format(LogLevel.ERROR, { tags, args: [msg, cause] }, options);
 
     const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
     const rest = formatDataList.reduce((list, [_, ...rest]) => [...list, rest], []) as any[];
