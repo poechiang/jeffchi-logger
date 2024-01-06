@@ -1,7 +1,7 @@
 import path from 'path';
 import { withTags } from '../index';
 import { ILogOptions } from '../interface';
-const currVersion = '3.1.0';
+const currVersion = '4.0.0';
 const testLogFile = 'logs/test/' + path.basename(__filename).replace(/(\.(test|spec))\.ts$/, '$1.log');
 const testOptions: ILogOptions = {
   output: { file: testLogFile },
