@@ -1,6 +1,7 @@
 {
   "extends": ["tslint:recommended", "tslint-config-prettier"],
 
+  "excludes": ["node_modules", "__tests__"],
   "rules": {
     "no-console": false,
     "no-unused-expression": false

@@ -10,20 +10,17 @@ const testOptions: ILogOptions = {
 };
 
 test('"MMM dd, yyyy HH:mm:ss.SSS" group test', () => {
-  const { assert, success,log, warn, info, error, debug } = withTags([currVersion, 'test'], {
+  const { log, warn, info, error, debug } = withTags([currVersion, 'test'], {
     ...testOptions,
     output: { file: testLogFile, groupByLevel: true },
     date: 'MMM dd, yyyy HH:mm:ss.SSS',
   });
 
-  expect(assert(true,'test true assert')).toBeUndefined();
-  expect(assert(false,'test false assert')).toBeUndefined();
-  expect(success('test success')).toBeUndefined();
   expect(debug('test debug')).toBeUndefined();
+  expect(error('test error')).toBeUndefined();
   expect(info('test info')).toBeUndefined();
   expect(log('test log')).toBeUndefined();
-  expect(warn('test warn...')).toBeUndefined();
-  expect(error('test error...')).toBeUndefined();
+  expect(warn('test warn')).toBeUndefined();
 });
 
 test.todo(

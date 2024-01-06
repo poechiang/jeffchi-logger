@@ -1,0 +1,10 @@
+console.log('\x1B[93m%s\x1B[33m%d', 93, 33);
+console.log('\x1B[103m%s\x1B[43m%d\x1b[0m', 103, 43);
+console.log('\x1B[31m\x1B[103m%s\x1B[43m%d\x1b[0m', 103, 43);
+console.log('%i', 123);
+console.log('%d', 123);
+console.log('%f', 123);
+console.log('%s', 123);
+console.log('%o', 123);
+console.log('%O', 123);
+console.log('%k', 123);

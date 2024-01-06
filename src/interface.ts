@@ -10,24 +10,25 @@ export enum LogMode {
    */
   ALL = 'all',
   /**
-   * 仅开发模式启用日志打印输出
+   * 仅生产模式启用日志打印输出
    */
   PRODUCTION = 'production',
   /**
-   * 仅生产模式下启用日志打印输出
+   * 仅开发模式下启用日志打印输出
    */
   DEVELOPMENET = 'development',
-  NONE = 'none',
 }
 /**
  * 日志级别
  */
 export enum LogLevel {
+  ASSERT = 'ASSERT',
   LOG = 'LOG',
   WARN = 'WARN',
   INFO = 'INFO',
   ERROR = 'ERROR',
   DEBUG = 'DEBUG',
+  SUCCESS = 'SUCCESS',
 }
 /** 日志标签 */
 export type LogTags = string | string[];
@@ -41,6 +42,7 @@ export type LogOutputOptions = {
    */
   groupByLevel?: boolean;
 };
+export type LogColorPalette = boolean | Record<string, string>;
 /** 日志配置选项 */
 export interface ILogOptions {
   /** 日志级别
@@ -70,12 +72,6 @@ export interface ILogOptions {
   /** 调用error输出错误信息后,禁止继续抛出异常错误
    * @description
    * 调用error输出错误信息后,默认继续抛出异常错误,在测试环境下可以临地禁用,避免影响正常的测试流程
-   * @deprecated 由disabledThrow代替
-   */
-  ignoreThrow?: boolean;
-  /** 调用error输出错误信息后,禁止继续抛出异常错误
-   * @description
-   * 调用error输出错误信息后,默认继续抛出异常错误,在测试环境下可以临地禁用,避免影响正常的测试流程
    */
   disableThrow?: boolean;
   /**
@@ -85,10 +81,14 @@ export interface ILogOptions {
    * 浏览器环境:自动忽略该选项;
    *
    * node环境下默认 logs/xxx.log
-   * @deprecated 由output代替
    */
-  outputFile?: string;
   output?: string | LogOutputOptions;
+
+  /**
+   * 终端日志输出配色
+   * @version ^4.0+
+   */
+  color?: LogColorPalette;
 }
 
 export interface IFileHelper {
@@ -107,9 +107,11 @@ export interface IFileHelper {
   dirname?: (fn: string) => string;
 }
 export interface ILogger {
-  debug: (...rest: any[]) => void;
-  info: (...rest: any[]) => void;
-  log: (...rest: any[]) => void;
-  warn: (...rest: any[]) => void;
-  error: (msg: string) => void;
+  assert: (...args: any[]) => void;
+  debug: (...args: any[]) => void;
+  info: (...args: any[]) => void;
+  log: (...args: any[]) => void;
+  warn: (...args: any[]) => void;
+  error: (...args: any[]) => void;
+  success: (...args: any[]) => void;
 }
