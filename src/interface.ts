@@ -88,7 +88,7 @@ export interface ILogOptions {
    * 终端日志输出配色
    * @version ^4.0+
    */
-  color?: LogColorPalette;
+  color?: boolean; // LogColorPalette;
 }
 
 export interface IFileHelper {

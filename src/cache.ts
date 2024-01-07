@@ -39,8 +39,8 @@ export class LogCache {
   }
 
   push(data: LogContent, output: LogOutputOptions) {
-    let file = output.file || this.defaultLogFile;
-    if (output.groupByLevel) {
+    let file = output?.file || this.defaultLogFile;
+    if (output?.groupByLevel) {
       // 日志文件如需分组,则修改日志文件名
       const prefix = data.prefix || [];
       const lvl = data.level?.toLowerCase() || 'unknown';

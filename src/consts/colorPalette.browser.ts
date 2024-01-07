@@ -1,19 +1,19 @@
 export const timestamp = '#9e9e9e';
 
-export const ASSERT = '#353535';
-export const DEBUG = '#353535';
-export const LOG = '#353535';
-export const INFO = '#0524ee';
+export const ASSERT = '#00bcd4';
+export const DEBUG = '#607d8b';
+export const LOG = '#757575';
+export const INFO = '#2196f3';
 export const WARN = '#ff9800';
-export const ERROR = '#ff5722';
+export const ERROR = '#f44336';
 export const SUCCESS = '#4caf50';
 
-export const number = '#0524ee';
+export const number = '#0063ff';
 export const boolean = '#9c27b0';
 /**
  * empty: null or undefined
  */
-export const empty = '#bf360c';
-export const date = '#353535';
-export const func = '#353535';
-export const obj = '#353535';
+export const empty = '#656565';
+export const date = '#0063ff';
+export const func = '#795548';
+export const obj = '#795548';

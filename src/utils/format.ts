@@ -7,17 +7,25 @@ import * as nodeColorPalete from '../consts/colorPalette.node';
 import * as levelTagMap from '../consts/levelTagMap';
 import { isBrowser } from './checkPlateform';
 const tagColorMap: any = {};
-const randomColor = (a: number = 1) => {
+const randomColor = () => {
   if (isBrowser()) {
-    const r = Math.floor(Math.random() * 255);
-    const g = Math.floor(Math.random() * 255);
-    const b = Math.floor(Math.random() * 255);
-    return `rgba(${r}, ${g}, ${b}, ${a})`;
+    const r = Math.floor(Math.random() * 128)
+      .toString(16)
+      .padStart(2, '0');
+    const g = Math.floor(Math.random() * 128)
+      .toString(16)
+      .padStart(2, '0');
+    const b = Math.floor(Math.random() * 128)
+      .toString(16)
+      .padStart(2, '0');
+    return `#${r}${g}${b}`;
   } else {
     // 随机颜色仅应用于标签，范围为40-47，100-107
-    const list = [40, 41, 42, 43, 44, 45, 46, 47, 100, 101, 102, 103, 104, 105, 106, 107];
-    const r = list[Math.floor(Math.random() * list.length)];
-    return `\x1b[${r}m`;
+    const list = [40, 100, 41, 101, 42, 102, 43, 103, 44, 104, 45, 105, 46, 106, 47, 107];
+    const idx = Math.floor(Math.random() * list.length);
+    const bc = list[idx];
+    const fc = list[list.length - idx - 1];
+    return `\x1b[${fc - 10}m\x1b[${bc}m`;
   }
 };
 
@@ -61,7 +69,7 @@ const buildLabelItem = (color: string, value: any, options?: { backColor?: boole
     if (options?.backColor) {
       return [
         `%c${options?.fmtTag ?? '%s'}%c `,
-        `background-color:${color};padding-inline:4px;border-radius:2px;`,
+        `color:${color};background-color:${color}3f;padding-inline:4px;border-radius:2px;`,
         value,
         '',
       ];
@@ -69,7 +77,7 @@ const buildLabelItem = (color: string, value: any, options?: { backColor?: boole
       return [`%c${options?.fmtTag ?? '%s'}%c `, `color:${color}`, value, ''];
     }
   } else {
-    return [`%s${options?.fmtTag ?? '%s'}%s `, color, value, '\x1b[m'];
+    return [`%s${options?.fmtTag ?? '%s'}%s `, color, value, '\x1b[0m'];
   }
 };
 export const format = (level: LogLevel, data: { tags: LogTags; args: any[] }, options?: ILogOptions) => {

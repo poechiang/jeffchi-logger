@@ -10,15 +10,46 @@ const testOptions: ILogOptions = {
 };
 
 test('"MMM dd, yyyy HH:mm:ss.SSS" group test', () => {
-  const { assert, success,log, warn, info, error, debug } = withTags([currVersion, 'test'], {
+  const { assert, success,log, warn, info, error, debug } = withTags([currVersion, 'main','group'], {
     ...testOptions,
     output: { file: testLogFile, groupByLevel: true },
     date: 'MMM dd, yyyy HH:mm:ss.SSS',
   });
 
-  expect(assert(true,'test true assert')).toBeUndefined();
   expect(assert(false,'test false assert')).toBeUndefined();
   expect(success('test success')).toBeUndefined();
+  expect(debug('test debug')).toBeUndefined();
+  expect(info('test info')).toBeUndefined();
+  expect(log('test log')).toBeUndefined();
+  expect(warn('test warn...')).toBeUndefined();
+  expect(error('test error...')).toBeUndefined();
+});
+
+test('default date format ungroup', () => {
+  const { assert, success,log, warn, info, error, debug } = withTags([currVersion, 'main','ungroup'], {
+    ...testOptions,
+    output: { file: testLogFile ,groupByLevel:false},
+    date: true,
+  });
+
+  expect(assert(false,'test false assert')).toBeUndefined();
+  expect(success('test success',456,true,{a:1,b:2})).toBeUndefined();
+  expect(debug('test debug')).toBeUndefined();
+  expect(info('test info')).toBeUndefined();
+  expect(log('test log')).toBeUndefined();
+  expect(warn('test warn...')).toBeUndefined();
+  expect(error('test error...')).toBeUndefined();
+});
+test('default date format with single color', () => {
+  const { assert, success,log, warn, info, error, debug } = withTags([currVersion, 'main','ungroup','single'], {
+    ...testOptions,
+    output: { file: testLogFile ,groupByLevel:false},
+    date: true,
+    color:false
+  });
+
+  expect(assert(false,'test false assert')).toBeUndefined();
+  expect(success('test success',456,true,{a:1,b:2})).toBeUndefined();
   expect(debug('test debug')).toBeUndefined();
   expect(info('test info')).toBeUndefined();
   expect(log('test log')).toBeUndefined();
