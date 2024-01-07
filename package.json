@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "4.0.0-alpha.2",
+  "version": "4.0.0",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "browser": "lib/index.cjs",
@@ -42,7 +42,7 @@
     "postpush": "git push",
     "prepublishOnly": "npm run test main && npm run lint",
     "publish": "git push --follow-tags origin develop && npm publish",
-    "release": "node release"
+    "release": "node release  && npm publish"
   },
   "author": "jeffery·chiang",
   "license": "MIT",
