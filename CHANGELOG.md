@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-alpha.0](https://github.com/poechiang/jeffchi-logger/compare/v3.1.0...v4.0.0-alpha.0) (2024-01-07)
+
+
+### Features
+
+* 支持多色打印 ([63b9cf3](https://github.com/poechiang/jeffchi-logger/commit/63b9cf3d3e65d982eb0eff37a07fe2b7c831ce79))
+* add commitizen dependency & update test file version ([f7ee7ac](https://github.com/poechiang/jeffchi-logger/commit/f7ee7ac837d53764018771af972793b78108f73f))
+* **format colors:** 扩展适配后端nodejs环境下终端的多色打印输出 ([134f432](https://github.com/poechiang/jeffchi-logger/commit/134f4328a93ef4a9615931f41145a116559d0d29))
+
+
+### Bug Fixes
+
+* 修复npm包发布时tslint报错及字段/变量名命名问题 ([9c9979e](https://github.com/poechiang/jeffchi-logger/commit/9c9979ed34a9968ed8fd91ebc6678ad7d9eaeae8))
+
 ## [3.1.0](https://github.com/poechiang/jeffchi-logger/compare/v3.1.0-rc.0...v3.1.0) (2023-04-23)
 
 ## [3.1.0-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v3.0.1-alpha.6...v3.1.0-rc.0) (2023-04-23)
