@@ -7,12 +7,12 @@ export const WARN = '\x1b[33m';
 export const ERROR = '\x1b[91m';
 export const SUCCESS = '\x1b[32m';
 
-export const number = '\x1b[94m';
-export const boolean = '\x1b[35m';
+export const $number = '\x1b[94m';
+export const $boolean = '\x1b[35m';
 /**
  * empty: null or undefined
  */
-export const empty = '\x1b[90m';
-export const date = '\x1b[90m';
-export const func = '\x1b[90m';
-export const obj = '\x1b[90m';
+export const $empty = '\x1b[90m';
+export const $date = '\x1b[90m';
+export const $function = '\x1b[90m';
+export const $object = '\x1b[90m';

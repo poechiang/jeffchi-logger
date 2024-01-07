@@ -42,7 +42,7 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
     const formatDataList = format(LogLevel.ASSERT, { tags, args }, options);
 
     const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
-    const rest = formatDataList.reduce((list, [_, ...rest]) => [...list, rest], []) as any[];
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
 
     if (checkEnv(mergedOptions.env ?? LogMode.ALL)) {
       if (!isBrowser()) {
@@ -65,7 +65,7 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
   const success = (...args: any[]) => {
     const formatDataList = format(LogLevel.SUCCESS, { tags, args }, options);
     const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
-    const rest = formatDataList.reduce((list, [_, ...rest]) => [...list, rest], []) as any[];
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
 
     outputLogTerminal(console.log, fmtStr, rest, mergedOptions);
     outputLogFile(LogLevel.SUCCESS, rest, mergedOptions);
@@ -73,7 +73,7 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
   const debug = (...args: any[]) => {
     const formatDataList = format(LogLevel.DEBUG, { tags, args }, options);
     const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
-    const rest = formatDataList.reduce((list, [_, ...rest]) => [...list, rest], []) as any[];
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
 
     outputLogTerminal(console.debug, fmtStr, rest, mergedOptions);
     outputLogFile(LogLevel.DEBUG, rest, mergedOptions);
@@ -81,7 +81,7 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
   const info = (...args: any[]) => {
     const formatDataList = format(LogLevel.INFO, { tags, args }, options);
     const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
-    const rest = formatDataList.reduce((list, [_, ...rest]) => [...list, rest], []) as any[];
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
 
     outputLogTerminal(console.info, fmtStr, rest, mergedOptions);
     outputLogFile(LogLevel.INFO, rest, mergedOptions);
@@ -89,7 +89,7 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
   const log = (...args: any[]) => {
     const formatDataList = format(LogLevel.LOG, { tags, args }, options);
     const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
-    const rest = formatDataList.reduce((list, [_, ...rest]) => [...list, rest], []) as any[];
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
 
     outputLogTerminal(console.log, fmtStr, rest, mergedOptions);
     outputLogFile(LogLevel.LOG, rest, mergedOptions);
@@ -97,8 +97,8 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
   const warn = (...args: any[]) => {
     const formatDataList = format(LogLevel.WARN, { tags, args }, options);
 
-    const fmtStr = formatDataList.reduce((str, [fmt, ...rest]) => str + fmt, '');
-    const rest = formatDataList.reduce((list, [_, ...rest]) => [...list, rest], []) as any[];
+    const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
 
     const { disableError } = mergedOptions;
     const out = disableError ? console.log : console.warn;
@@ -111,7 +111,7 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
     const formatDataList = format(LogLevel.ERROR, { tags, args: [msg, cause] }, options);
 
     const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
-    const rest = formatDataList.reduce((list, [_, ...rest]) => [...list, rest], []) as any[];
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
 
     const { disableThrow, disableError } = mergedOptions;
     const out = disableError ? console.log : console.error;

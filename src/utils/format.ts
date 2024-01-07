@@ -30,25 +30,12 @@ const randomColor = () => {
 };
 
 const getColor = (arg: any) => {
-  const colorPalete = isBrowser() ? browserColorPalete : nodeColorPalete;
+  const colorPalette: any = isBrowser() ? browserColorPalete : nodeColorPalete;
   if (arg === null || arg === undefined) {
-    return colorPalete.empty;
+    return colorPalette.$empty;
   }
   const atype = arg.constructor.name.toLocaleLowerCase();
-  let argColor;
-  if (atype === 'number') {
-    argColor = colorPalete.number;
-  } else if (atype === 'boolean') {
-    argColor = colorPalete.boolean;
-  } else if (atype === 'function') {
-    argColor = colorPalete.func;
-  } else if (atype === 'object') {
-    argColor = colorPalete.obj;
-  } else if (atype === 'date') {
-    argColor = colorPalete.date;
-  }
-
-  return argColor;
+  return colorPalette[`$${atype}`];
 };
 const getFmtTag = (arg: any) => {
   if (arg === null || arg === undefined) {
