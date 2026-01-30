@@ -15,14 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: release-please
-        uses: google-github-actions/release-please-action@v4
+        uses: googleapis/release-please-action@v3.1.2
         id: release
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          target-branch: ${{ github.ref_name }}
+          package-name: '@jeffchi/fetchjs'
           release-type: node
-          # config-file: releases/release-please-config.json
-          # manifest-file: releases/.release-please-manifest.json
 
       # Checkout
       - uses: actions/checkout@v3

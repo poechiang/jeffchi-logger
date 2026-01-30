@@ -12,10 +12,9 @@ jobs:
       pull-requests: write
       repository-projects: write
     steps:
-      - uses: google-github-actions/release-please-action@v3
+      - name: release-please
+        uses: googleapis/release-please-action@v3.1.2
         id: release
         with:
-          release-type: node
           package-name: '@jeffchi/fetchjs'
-          bump-patch-for-minor-pre-major: true
-          default-branch: release
+          release-type: node
