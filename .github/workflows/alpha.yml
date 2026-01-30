@@ -28,6 +28,9 @@ jobs:
           package-name: '@jeffchi/logger'
           include-v-in-tag: true
       - name: Publish alpha to npm
-        run: npm publish --tag alpha
+        run: |
+          git config --global user.email "poechiang@live.cn"
+          git config --global user.name "poechiang"
+          npm publish --tag alpha
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
