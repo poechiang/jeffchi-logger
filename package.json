@@ -36,13 +36,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json",
-    "test:main": "jest ./src/__tests__/main.test.ts --config jestconfig.json",
-    "prepush": "git add .",
-    "push": "git commit -m",
-    "postpush": "git push",
-    "prepublishOnly": "npm run test main && npm run lint",
-    "publish": "git push --follow-tags origin develop && npm publish",
-    "release": "node release"
+    "test:main": "jest ./src/__tests__/main.test.ts --config jestconfig.json"
   },
   "author": "jeffery·chiang",
   "license": "MIT",
