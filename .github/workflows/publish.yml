@@ -1,3 +1,4 @@
+#正式发布
 name: publish
 
 on:
@@ -10,13 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://registry.npmjs.org
-      - run: pnpm install
-      - run: pnpm build
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install
+      - run: npm run build
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,3 +1,4 @@
+# ✔ 不发版，只跑测试、lint、构建
 name: CI
 
 on:
@@ -8,14 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
-      - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm test
-      - run: pnpm build
+          cache: 'npm'
+      - run: npm install
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
