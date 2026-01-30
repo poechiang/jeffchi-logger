@@ -1,20 +1,20 @@
-# 生成 git release
-name: Release
+name: release-please
+
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      repository-projects: write
     steps:
-      - name: release-please
-        uses: googleapis/release-please-action@v3.1.2
-        id: release
+      - uses: googleapis/release-please-action@v4
         with:
-          package-name: '@jeffchi/fetchjs'
           release-type: node
+          package-name: '@jeffchi/logger'
+          bump-minor-pre-major: true
+          include-v-in-tag: true

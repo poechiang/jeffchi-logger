@@ -1,59 +1,22 @@
+name: publish-rc
+
 on:
   push:
     branches:
-      - release/*-rc
-  workflow_dispatch:
+      - 'rc/**'
+
 permissions:
   contents: write
   pull-requests: write
 
-name: release-please-rc
-env:
-  ACTION_NAME: release-please-action
 jobs:
-  version:
+  release-rc:
     runs-on: ubuntu-latest
     steps:
-      - name: release-please
-        uses: googleapis/release-please-action@v3.1.2
-        id: release
+      - uses: googleapis/release-please-action@v4
         with:
-          package-name: '@jeffchi/fetchjs'
           release-type: node
-
-      # Checkout
-      - uses: actions/checkout@v3
-        if: ${{ steps.release.outputs.release_created }}
-      # Setup node
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-          registry-url: 'https://registry.npmjs.org'
-        if: ${{ steps.release.outputs.release_created }}
-
-      # Install dependencies
-      - name: npm install
-        run: npm install
-        if: ${{ steps.release.outputs.release_created }}
-
-      # Install dependencies
-      - name: npm ci
-        run: npm ci
-        if: ${{ steps.release.outputs.release_created }}
-
-      # Build output
-      - name: Build
-        run: npm run build
-        if: ${{ steps.release.outputs.release_created }}
-      # Publish to npm
-      - run: |
-          git config --global user.email "poechiang@live.cn"
-          git config --global user.name "poechiang"
-          git add -A
-          git commit -m "chore(release please): version ${{ steps.release.outputs.version }} [skip ci]"
-          npm version prerelease --preid rc
-          git push origin ${{ github.ref_name }} --follow-tags
-          npm publish --tag rc
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-        if: ${{ steps.release.outputs.release_created }}
+          prerelease: true
+          prerelease-type: rc
+          package-name: '@jeffchi/logger'
+          include-v-in-tag: true
