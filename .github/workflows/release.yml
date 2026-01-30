@@ -1,0 +1,20 @@
+# 生成 git release
+name: Release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+    steps:
+      - name: release-please
+        uses: googleapis/release-please-action@v3.1.2
+        id: release
+        with:
+          package-name: '@jeffchi/fetchjs'
+          release-type: node
