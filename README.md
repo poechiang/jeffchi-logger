@@ -12,16 +12,16 @@ A log print output javascript tool library that can be used at the front and bac
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![JEST Report](https://github.com/poechiang/jeffchi-logger/actions/workflows/jest-report.yml/badge.svg)](https://github.com/poechiang/jeffchi-logger/actions/workflows/jest-report.yml)
 
-</div>
+
 
 ## 支持环境
 
 - 现代浏览器。
 - 支持服务端使用, 在服务端使用时默认写入 %root%/logs/yyyy-mm-dd.log 日志文件。
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Edge                                                                                                                                                                                                            | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                           |
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Opera |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Edge                                                         | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
 
 ## 安装
 
@@ -40,9 +40,9 @@ yarn add @jeffchi/logger
 ## 用法
 
 ```javascript
-import { withTags, loggerWithTags } from '@jeffchi/logger';
+import { withTags } from '@jeffchi/logger';
 import { LogLevel, LogMode } from '@jeffchi/logger/lib/interface';
-const { debug, error, info, log, warn } = loggerWithTags(
+const { debug, error, info, log, warn } = withTags(
   'api', // ['api','get'] 一个或多个tag
   {
     level: LogLevel.LOG, // 日志级别只有指定级别的日志才会输出至日志文件
@@ -75,9 +75,9 @@ export type LogTags = string | string[];
 /** 日志配置选项 */
 export interface ILogOptions {
   /** 日志级别
-   * @default LogLevel.LOG
+   * @default [LogLevel.LOG]
    */
-  level?: LogLevel;
+  levels?: LogLevel[];
   /**
    * 是否支持输出时间戳及时间戳格式
    *
@@ -102,7 +102,7 @@ export interface ILogOptions {
    * @description
    * 调用error输出错误信息后,默认继续抛出异常错误,在测试环境下可以临地禁用,避免影响正常的测试流程
    */
-  ignoreThrow?: boolean;
+  disableThrow?: boolean;
   /**
    * 基于当前工程根目录下的日志输出文件
    *
@@ -110,10 +110,13 @@ export interface ILogOptions {
    * 浏览器环境:自动忽略该选项;
    *
    * node环境下默认 logs/xxx.log
-   * @deprecated 由output代替
    */
-  outputFile?: string;
   output?: string | LogOutputOptions;
+  /**
+   * 终端日志输出配色
+   * @version ^4.0+
+   */
+  color?: boolean;
 }
 ```
 

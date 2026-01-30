@@ -50,7 +50,7 @@
     ".": {
       "import": "./lib/index.mjs",
       "require": "./lib/index.cjs",
-      "types": "./index.d.ts"
+      "types": "./lib/index.d.ts"
     }
   },
   "files": [
