@@ -1,0 +1,21 @@
+# 生成 git release
+name: Release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: node
+          package-name: '@jeffchi/fetchjs'
+          bump-patch-for-minor-pre-major: true
+          default-branch: release
