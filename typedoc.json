@@ -1,4 +1,7 @@
 {
   "entryPoints": ["./src"],
+  "excludeExternals": true,
+  "externalPattern": ["**/(__tests__|node_modules)/**"],
+  "skipErrorChecking": true,
   "out": "docs"
 }

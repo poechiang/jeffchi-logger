@@ -28,7 +28,9 @@ const scripts = {};
 if (args.dryRun) {
   scripts.posttag = `git push --follow-tags && npm publish ${prerelease ? '--tag ' + prerelease : ''} --dry-run`;
 } else {
-  scripts.posttag = `git push --follow-tags && npm publish ${prerelease ? '--tag ' + prerelease : ''}`;
+  scripts.posttag = `git push --follow-tags && npm publish ${prerelease ? '--tag ' + prerelease : ''} --otp=${
+    args.otp
+  }`;
 }
 if (options.commitAll) {
   scripts.prerelease = 'git add -A .';
