@@ -1,5 +1,4 @@
 # ✔ npm 上生成 1.3.0-rc.1、1.3.0-rc.2 等版本
-
 name: publish-rc
 
 on:
@@ -19,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
       - run: npm install
       - uses: googleapis/release-please-action@v4
         with:
@@ -28,3 +27,7 @@ jobs:
           prerelease-type: rc
           package-name: '@jeffchi/logger'
           include-v-in-tag: true
+      - name: Publish rc to npm
+        run: npm publish --tag rc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
