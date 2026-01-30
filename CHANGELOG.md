@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.1-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v4.1.0-rc.0...v4.1.1-rc.0) (2026-01-30)
+
+
+### Bug Fixes
+
+* modify package.json exports for dts ([4728e77](https://github.com/poechiang/jeffchi-logger/commit/4728e77318a45b27c7170c9ac6839b311bb3cdc9))
+
 ## [4.1.0-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v4.0.1-alpha.2...v4.1.0-rc.0) (2024-01-07)
 
 ### [4.0.1-alpha.2](https://github.com/poechiang/jeffchi-logger/compare/v4.0.1-alpha.1...v4.0.1-alpha.2) (2024-01-07)
