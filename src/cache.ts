@@ -10,6 +10,7 @@ import { isArray } from './utils/type';
 export interface LogContent {
   prefix?: string[];
   data: any[];
+  level?: string;
 }
 export interface ILogCacheMapItem {
   Set: Set<any>;
@@ -38,14 +39,13 @@ export class LogCache {
   }
 
   push(data: LogContent, output: LogOutputOptions) {
-    let file = output.file || this.defaultLogFile;
-
-    if (output.groupByLevel) {
+    let file = output?.file || this.defaultLogFile;
+    if (output?.groupByLevel) {
       // 日志文件如需分组,则修改日志文件名
       const prefix = data.prefix || [];
-      const lvl = prefix.splice(1, 1)?.[0];
+      const lvl = data.level?.toLowerCase() || 'unknown';
 
-      file = file.replace(/\.log$/, `.${lvl.replace(/\[|\]/g, '').toLowerCase()}.log`);
+      file = file.replace(/\.log$/, `.${lvl}.log`);
       data.prefix = prefix;
     }
     let set = this.#map.get(file);
@@ -105,7 +105,16 @@ export class LogCache {
 
     if (outputFile && writeFile) {
       const list: string[] = content.reduce<string[]>(
-        (o, { prefix = [], data }) => [...o, [...prefix, ...data.map(JSON.stringify as any), '\n'].join(' ')],
+        (o, { prefix = [], data }) => [
+          ...o,
+          [
+            ...prefix,
+            ...data.map((d) => {
+              return typeof d === 'string' ? d : JSON.stringify(d);
+            }),
+          ].join(' '),
+          '\n',
+        ],
         [],
       );
       writeFile?.(outputFile, list.join(''), { flag: 'a' }, noop);

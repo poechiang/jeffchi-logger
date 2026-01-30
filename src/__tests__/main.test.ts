@@ -1,7 +1,7 @@
 import path from 'path';
 import { withTags } from '../index';
 import { ILogOptions } from '../interface';
-const currVersion = '1.0.4';
+const currVersion = '4.0.0';
 const testLogFile = 'logs/test/' + path.basename(__filename).replace(/(\.(test|spec))\.ts$/, '$1.log');
 const testOptions: ILogOptions = {
   output: { file: testLogFile },
@@ -10,17 +10,51 @@ const testOptions: ILogOptions = {
 };
 
 test('"MMM dd, yyyy HH:mm:ss.SSS" group test', () => {
-  const { log, warn, info, error, debug } = withTags([currVersion, 'test'], {
+  const { assert, success,log, warn, info, error, debug } = withTags([currVersion, 'main','group'], {
     ...testOptions,
     output: { file: testLogFile, groupByLevel: true },
     date: 'MMM dd, yyyy HH:mm:ss.SSS',
   });
 
+  expect(assert(false,'test false assert')).toBeUndefined();
+  expect(success('test success')).toBeUndefined();
   expect(debug('test debug')).toBeUndefined();
-  expect(error('test error')).toBeUndefined();
   expect(info('test info')).toBeUndefined();
   expect(log('test log')).toBeUndefined();
-  expect(warn('test warn')).toBeUndefined();
+  expect(warn('test warn...')).toBeUndefined();
+  expect(error('test error...')).toBeUndefined();
+});
+
+test('default date format ungroup', () => {
+  const { assert, success,log, warn, info, error, debug } = withTags([currVersion, 'main','ungroup'], {
+    ...testOptions,
+    output: { file: testLogFile ,groupByLevel:false},
+    date: true,
+  });
+
+  expect(assert(false,'test false assert')).toBeUndefined();
+  expect(success('test success',456,true,{a:1,b:2})).toBeUndefined();
+  expect(debug('test debug')).toBeUndefined();
+  expect(info('test info')).toBeUndefined();
+  expect(log('test log')).toBeUndefined();
+  expect(warn('test warn...')).toBeUndefined();
+  expect(error('test error...')).toBeUndefined();
+});
+test('default date format with single color', () => {
+  const { assert, success,log, warn, info, error, debug } = withTags([currVersion, 'main','ungroup','single'], {
+    ...testOptions,
+    output: { file: testLogFile ,groupByLevel:false},
+    date: true,
+    color:false
+  });
+
+  expect(assert(false,'test false assert')).toBeUndefined();
+  expect(success('test success',456,true,{a:1,b:2})).toBeUndefined();
+  expect(debug('test debug')).toBeUndefined();
+  expect(info('test info')).toBeUndefined();
+  expect(log('test log')).toBeUndefined();
+  expect(warn('test warn...')).toBeUndefined();
+  expect(error('test error...')).toBeUndefined();
 });
 
 test.todo(

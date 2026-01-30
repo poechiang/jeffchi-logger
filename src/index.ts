@@ -1,82 +1,128 @@
 import { LogCache } from './cache';
 import { defOptions } from './consts/defOptions';
 import { ILogger, ILogOptions, LogLevel, LogMode, LogOutputOptions, LogTags } from './interface';
-import { buildLogPreffix } from './utils/buildLogPreffix';
-import { checkLogMode } from './utils/checkLogMode';
-import { isArray, isString } from './utils/type';
+import { checkEnv } from './utils/checkEnv';
+import { isBrowser } from './utils/checkPlateform';
+import { format } from './utils/format';
+import { isString } from './utils/type';
 
+const outputLogFile = (level: LogLevel, args: any[], options: ILogOptions) => {
+  const { output, levels = [] } = options;
+  const logOutputOptions = (isString(output) ? { file: output } : output) as LogOutputOptions;
+  if (!levels?.length || levels.includes(LogLevel.SUCCESS)) {
+    LogCache.cache.push(
+      {
+        level,
+        data: [...args.reduce((list, arg) => [...list, arg[1]], [])],
+      },
+      logOutputOptions,
+    );
+  }
+};
+const outputLogTerminal = (outFn: (...args: any[]) => void, fmtStr: string, args: any[], options: ILogOptions) => {
+  const { env = LogMode.ALL, color = true } = options;
+  if (checkEnv(env ?? LogMode.ALL)) {
+    if (color !== false) {
+      outFn(fmtStr, ...args.reduce((list, arg) => [...list, ...arg], []));
+    } else {
+      outFn(...args.reduce((list, arg) => [...list, arg[1]], []));
+    }
+  }
+};
 /**
  * 出口方法,
  * @param tags 标签或标签列表,统一转换为大写输出
  * @param options ILogOptions
  * @returns
- * @deprecated 由 withTags代替
  */
-export const loggerWithTags = (tags: LogTags, options?: ILogOptions): ILogger => {
-  if (!isArray(tags)) {
-    tags = [tags];
-  }
+export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
+  const mergedOptions = { ...defOptions, ...options };
 
-  const { env, outputFile, output: _out, levels = [], ...mergedOptions } = { ...defOptions, ...(options || {}) };
-  const output = (isString(_out) ? { file: _out } : _out || { file: outputFile }) as LogOutputOptions;
-  const debug = (...rest: any[]) => {
-    const [date, ...prefix] = buildLogPreffix(tags as string[], { ...mergedOptions });
-    const prefixList = [date, `[${LogLevel.DEBUG}]`, ...prefix];
-    checkLogMode(env || LogMode.ALL) && console.debug(...prefixList, ...rest);
-    if (!levels?.length || levels.includes(LogLevel.DEBUG)) {
-      LogCache.cache.push({ prefix: prefixList, data: [...rest] }, output);
+  const assert = (value: boolean, ...args: any[]) => {
+    const formatDataList = format(LogLevel.ASSERT, { tags, args }, options);
+
+    const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
+
+    if (checkEnv(mergedOptions.env ?? LogMode.ALL)) {
+      if (!isBrowser()) {
+        console.assert(
+          value,
+          rest.reduce((list, arg) => [...list, ...(mergedOptions.color === false ? [arg[1]] : arg)], []).join(' '),
+        );
+      } else {
+        if (mergedOptions.color === false) {
+          console.assert(value, ...rest.reduce((list, arg) => [...list, arg[1]], []));
+        } else {
+          console.assert(value, fmtStr, ...rest.reduce((list, arg) => [...list, ...arg], []));
+        }
+      }
+    }
+    if (!value) {
+      outputLogFile(LogLevel.ASSERT, rest, mergedOptions);
     }
   };
-  const info = (...rest: any[]) => {
-    const [date, ...prefix] = buildLogPreffix(tags as string[], { ...mergedOptions });
-    const prefixList = [date, `[${LogLevel.INFO}]`, ...prefix];
-    checkLogMode(env || LogMode.ALL) && console.info(...prefixList, ...rest);
-    if (!levels?.length || levels.includes(LogLevel.INFO)) {
-      LogCache.cache.push({ prefix: prefixList, data: [...rest] }, output);
-    }
+  const success = (...args: any[]) => {
+    const formatDataList = format(LogLevel.SUCCESS, { tags, args }, options);
+    const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
+
+    outputLogTerminal(console.log, fmtStr, rest, mergedOptions);
+    outputLogFile(LogLevel.SUCCESS, rest, mergedOptions);
   };
-  const log = (...rest: any[]) => {
-    const [date, ...prefix] = buildLogPreffix(tags as string[], { ...mergedOptions });
-    const prefixList = [date, `[${LogLevel.LOG}]`, ...prefix];
-    checkLogMode(env || LogMode.ALL) && console.log(...prefixList, ...rest);
-    if (!levels?.length || levels.includes(LogLevel.LOG)) {
-      LogCache.cache.push({ prefix: prefixList, data: [...rest] }, output);
-    }
+  const debug = (...args: any[]) => {
+    const formatDataList = format(LogLevel.DEBUG, { tags, args }, options);
+    const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
+
+    outputLogTerminal(console.debug, fmtStr, rest, mergedOptions);
+    outputLogFile(LogLevel.DEBUG, rest, mergedOptions);
   };
-  const warn = (...rest: any[]) => {
-    const [date, ...prefix] = buildLogPreffix(tags as string[], { ...mergedOptions });
-    const prefixList = [date, `[${LogLevel.WARN}]`, ...prefix];
+  const info = (...args: any[]) => {
+    const formatDataList = format(LogLevel.INFO, { tags, args }, options);
+    const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
+
+    outputLogTerminal(console.info, fmtStr, rest, mergedOptions);
+    outputLogFile(LogLevel.INFO, rest, mergedOptions);
+  };
+  const log = (...args: any[]) => {
+    const formatDataList = format(LogLevel.LOG, { tags, args }, options);
+    const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
+
+    outputLogTerminal(console.log, fmtStr, rest, mergedOptions);
+    outputLogFile(LogLevel.LOG, rest, mergedOptions);
+  };
+  const warn = (...args: any[]) => {
+    const formatDataList = format(LogLevel.WARN, { tags, args }, options);
+
+    const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
+
     const { disableError } = mergedOptions;
-    const out = disableError ? console.debug : console.warn;
-    checkLogMode(env || LogMode.ALL) && out(...prefixList, ...rest);
+    const out = disableError ? console.log : console.warn;
 
-    if (!levels?.length || levels.includes(LogLevel.WARN)) {
-      LogCache.cache.push({ prefix: prefixList, data: [...rest] }, output);
-    }
+    outputLogTerminal(out, fmtStr, rest, mergedOptions);
+    outputLogFile(LogLevel.WARN, rest, mergedOptions);
   };
 
   const error = (msg: string, cause?: Error) => {
-    const [date, ...prefix] = buildLogPreffix(tags as string[], { ...mergedOptions });
-    const prefixList = [date, `[${LogLevel.ERROR}]`, ...prefix];
-    const { disableThrow, ignoreThrow, disableError } = mergedOptions;
-    const out = disableError ? console.debug : console.error;
-    checkLogMode(env || LogMode.ALL) && out(...prefixList, msg);
+    const formatDataList = format(LogLevel.ERROR, { tags, args: [msg, cause] }, options);
 
-    if (!levels?.length || levels.includes(LogLevel.ERROR)) {
-      LogCache.cache.push({ prefix: prefixList, data: [msg] }, output);
-    }
+    const fmtStr = formatDataList.reduce((str, [fmt]) => str + fmt, '');
+    const rest = formatDataList.reduce((list, [_, ...x]) => [...list, x], []) as any[];
+
+    const { disableThrow, disableError } = mergedOptions;
+    const out = disableError ? console.log : console.error;
+    outputLogTerminal(out, fmtStr, rest, mergedOptions);
+
+    outputLogFile(LogLevel.ERROR, rest, mergedOptions);
 
     // ignoreTrow默认行为改为true
-    if (ignoreThrow === false || disableThrow === false) {
+    if (disableThrow === false) {
       throw new Error(msg, { cause });
     }
   };
-  return { debug, info, log, warn, error };
+  return { assert, debug, info, log, warn, error, success };
 };
-
-/**
- * 新增总出口方法,原方法loggerWithTags废弃
- * @param options ILogOptions
- * @returns
- */
-export const withTags = loggerWithTags;
