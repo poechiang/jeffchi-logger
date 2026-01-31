@@ -1,35 +1,46 @@
-# ✔ npm 上生成 1.3.0-alpha.1、1.3.0-alpha.2 等版本
-name: publish-alpha
+name: release-please-alpha
 
 on:
   push:
     branches:
-      - 'alpha/**'
+      - release/*-alpha
+  workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  release-alpha:
+  release:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Run release-please
+        id: release
+        uses: googleapis/release-please-action@v4
         with:
-          fetch-depth: 0 # 拉取所有 commit + tag
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm install
-      - uses: googleapis/release-please-action@v4
-        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          release-as: '4.1.2-alpha.0'
+
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+
+      - uses: actions/setup-node@v4
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm ci
+
+      - name: Build
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm run build
+
       - name: Publish alpha to npm
-        run: |
-          git config --global user.email "poechiang@live.cn"
-          git config --global user.name "poechiang"
-          npm publish --tag alpha
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm publish --tag alpha
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
