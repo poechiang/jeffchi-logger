@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.2-beta.0](https://github.com/poechiang/jeffchi-logger/compare/v4.3.0-rc.0...v4.1.2-beta.0) (2026-01-31)
+
+
+### Features
+
+* rebuild alpha workflow yml -1 ([435927d](https://github.com/poechiang/jeffchi-logger/commit/435927d761a6e3fc1ea194a4fdde2a30f28be88a))
+* remove local publish logic - 6 ([bf49225](https://github.com/poechiang/jeffchi-logger/commit/bf49225aa3f2a8b239a59f7d08579c042a7706fd))
+
 ## [4.3.0-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v4.2.0-rc.0...v4.3.0-rc.0) (2026-01-31)
 
 
