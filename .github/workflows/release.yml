@@ -24,6 +24,7 @@ jobs:
       - uses: googleapis/release-please-action@v4
         with:
           release-type: node
+          release-as: '4.1.2-rc.0'
 
       - name: Publish rc to npm
         run: |
