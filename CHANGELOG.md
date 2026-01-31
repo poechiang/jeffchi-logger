@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0-beta.0](https://github.com/poechiang/jeffchi-logger/compare/v4.2.1-beta.0...v4.3.0-beta.0) (2026-01-31)
+
+
+### Features
+
+* add release-please init file ([66719ce](https://github.com/poechiang/jeffchi-logger/commit/66719ce31442d91750d2a16be7c7d7423579cdbe))
+* add release-please init file - 2 ([8aa452e](https://github.com/poechiang/jeffchi-logger/commit/8aa452eb3779e969bec32a4be595b58cc63012be))
+
 ## [4.2.1-beta.0](https://github.com/poechiang/jeffchi-logger/compare/v4.2.0-beta.0...v4.2.1-beta.0) (2026-01-31)
 
 
