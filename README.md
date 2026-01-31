@@ -38,6 +38,8 @@ pnpm add @jeffchi/logger --save
 ```
 
 123123123
+456
+456
 
 如果你的网络环境不佳，推荐使用 [cnpm](https://github.com/cnpm/cnpm)。
 
