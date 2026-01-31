@@ -42,15 +42,3 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          prerelease: true
-          prerelease-type: ${{ github.ref_name == 'release/*-alpha' && 'alpha' || github.ref_name == 'release/*-beta' && 'beta' || 'rc' }}
-          package-name: '@jeffchi/logger'
-          include-v-in-tag: true
-
-      # Publish to npm if release was created
-      - name: Publish prerelease to npm
-        if: ${{ steps.release.outputs.release_created == 'true' }}
-        run: |
-          npm publish --tag ${{ github.ref_name == 'release/*-alpha' && 'alpha' || github.ref_name == 'release/*-beta' && 'beta' || 'rc' }} --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
