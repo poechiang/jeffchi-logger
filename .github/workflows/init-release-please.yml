@@ -1,0 +1,47 @@
+name: init-release-please
+
+on:
+  workflow_dispatch: # 手动触发，初始化一次即可
+
+permissions:
+  contents: write
+
+jobs:
+  init-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      # 拉取仓库
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 拉取所有 commit + tag
+
+      # 设置 Node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      # 安装依赖
+      - run: npm ci
+
+      # 设置 git 用户
+      - name: Configure git for CI
+        run: |
+          git config --global user.email "poechiang@users.noreply.github.com"
+          git config --global user.name "poechiang"
+
+      # 运行 release-please，生成 manifest
+      - name: Generate release-please manifest
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          target-branch: main
+          skip-github-release: true # 只生成 manifest，不创建 GitHub release
+
+      # 提交 manifest 回主干
+      - name: Commit manifest
+        run: |
+          git add .release-please-manifest.json package.json CHANGELOG.md || true
+          git commit -m "chore: init release-please manifest [skip ci]" || echo "nothing to commit"
+          git push origin main
