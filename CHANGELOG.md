@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.1-beta.0](https://github.com/poechiang/jeffchi-logger/compare/v4.2.0-beta.0...v4.2.1-beta.0) (2026-01-31)
+
+
+### Bug Fixes
+
+* modify version ([5c9b17a](https://github.com/poechiang/jeffchi-logger/commit/5c9b17aa44148029e4b256a795b3ef7a8461d64e))
+
 ## [4.2.0-beta.0](https://github.com/poechiang/jeffchi-logger/compare/v4.1.2-beta.0...v4.2.0-beta.0) (2026-01-31)
 
 
