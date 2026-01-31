@@ -34,9 +34,10 @@ jobs:
       - name: Determine pre-release type
         id: prerelease
         run: |
-          if [[ "${GITHUB_REF##*/}" == release/*-alpha ]]; then
+          BRANCH_NAME=${GITHUB_REF##*/}
+          if [[ "$BRANCH_NAME" =~ -alpha$ ]]; then
             echo "TYPE=alpha" >> $GITHUB_ENV
-          elif [[ "${GITHUB_REF##*/}" == release/*-beta ]]; then
+          elif [[ "$BRANCH_NAME" =~ -beta$ ]]; then
             echo "TYPE=beta" >> $GITHUB_ENV
           else
             echo "TYPE=rc" >> $GITHUB_ENV
