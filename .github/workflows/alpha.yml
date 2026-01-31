@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - release/*-alpha
+    paths-ignore:
+      - 'package.json'
 
 permissions:
   contents: write
@@ -14,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 拉取所有 commit 和 tag
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -29,6 +33,9 @@ jobs:
         run: |
           npm version prerelease --preid alpha
           git push origin HEAD
-      - run: npm publish --tag alpha --access public
+
+      # ⭐ 发布到 npm
+      - name: Publish alpha
+        run: npm publish --tag alpha --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
