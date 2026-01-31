@@ -84,8 +84,11 @@ jobs:
         run: |
           if [[ "${GITHUB_REF_NAME}" == release/*-alpha ]]; then
             npm publish --tag alpha --access public
-          else
+          elif [[ "${GITHUB_REF_NAME}" == release/*-beta ]]; then
             npm publish --tag beta --access public
+          else
+            echo "Not a pre-release branch, skipping"
+            exit 0
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
