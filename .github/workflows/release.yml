@@ -23,6 +23,11 @@ jobs:
       - uses: googleapis/release-please-action@v4
         with:
           release-type: node
-          package-name: '@jeffchi/logger'
-          bump-minor-pre-major: true
-          include-v-in-tag: true
+
+      - name: Publish rc to npm
+        run: |
+          git config --global user.email "poechiang@live.cn"
+          git config --global user.name "poechiang"
+          npm publish --tag rc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
