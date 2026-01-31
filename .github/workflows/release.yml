@@ -4,7 +4,8 @@ name: release-please
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -14,22 +15,6 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm install
       - uses: googleapis/release-please-action@v4
         with:
           release-type: node
-          release-as: '4.1.2-rc.0'
-
-      - name: Publish rc to npm
-        run: |
-          git config --global user.email "poechiang@live.cn"
-          git config --global user.name "poechiang"
-          npm publish --tag rc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
