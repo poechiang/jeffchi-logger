@@ -1,45 +1,53 @@
-name: release-prerelease
+name: Release Pre-Release
 
 on:
   push:
     branches:
-      - 'release/*-alpha'
-      - 'release/*-beta'
-      - 'release/*-rc'
+      - release/*-alpha
+      - release/*-beta
+      - release/*-rc
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
-  release-prerelease:
+  release:
     runs-on: ubuntu-latest
     steps:
-      # Checkout full history
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # Setup Node 20
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
-      # Install deps & build
       - run: npm ci
       - run: npm run build
 
-      # Configure git (release-please 会 commit & push)
       - name: Configure git
         run: |
           git config --global user.email "poechiang@users.noreply.github.com"
           git config --global user.name "poechiang"
 
-      # Run release-please
-      - uses: googleapis/release-please-action@v4
-        id: release
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          release-type: node
-          config-file: .release-please-config.json
+      - name: Determine pre-release type
+        id: prerelease
+        run: |
+          if [[ "${GITHUB_REF##*/}" == release/*-alpha ]]; then
+            echo "TYPE=alpha" >> $GITHUB_ENV
+          elif [[ "${GITHUB_REF##*/}" == release/*-beta ]]; then
+            echo "TYPE=beta" >> $GITHUB_ENV
+          else
+            echo "TYPE=rc" >> $GITHUB_ENV
+          fi
+
+      - name: Bump version & generate changelog
+        run: |
+          npm run release:${TYPE}
+          git push --follow-tags origin HEAD
+
+      - name: Publish to npm
+        run: npm publish --tag ${{ env.TYPE }} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
