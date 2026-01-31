@@ -12,7 +12,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  publish:
+  publish-pre-release:
     runs-on: ubuntu-latest
     steps:
       # 1. Checkout
@@ -30,30 +30,56 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      # 4. 配置 git 用户身份
+      # 4. 配置 git 用户
       - name: Configure git for CI
         run: |
-          git config --global user.email "poechiang@live.cn"
-          git config --global user.name "porechiang"
+          git config --global user.email "poechiang@users.noreply.github.com"
+          git config --global user.name "poechiang"
 
-      # 5. 根据分支类型自动选择 preid
-      - name: Bump prerelease version
-        id: bump
+      # 5. 计算新 pre-release 版本
+      - name: Determine pre-release version
+        id: version
         run: |
+          # 获取当前分支 preid
           if [[ "${GITHUB_REF_NAME}" == release/*-alpha ]]; then
             PREID="alpha"
           elif [[ "${GITHUB_REF_NAME}" == release/*-beta ]]; then
             PREID="beta"
           else
-          echo "Not a pre-release branch, skipping"
+            echo "Not a pre-release branch, skipping"
             exit 0
           fi
 
-          # 自动 bump 版本并 commit
-          npm version prerelease --preid $PREID -m "chore: bump $PREID version [skip ci]"
+          echo "Pre-release type: $PREID"
+
+          # 获取最新正式版本
+          LATEST=$(npm view @jeffchi/logger version --registry https://registry.npmjs.org)
+          echo "Latest version on npm: $LATEST"
+
+          # 判断是否 pre-release
+          if [[ "$LATEST" =~ -(alpha|beta|rc)\.[0-9]+$ ]]; then
+            # 如果最新是 pre-release，则取主版本
+            BASE=$(echo $LATEST | sed -E 's/-(alpha|beta|rc)\.[0-9]+$//')
+          else
+            BASE=$LATEST
+          fi
+
+          echo "Base version: $BASE"
+
+          # 生成新的 pre-release
+          NEW_VERSION=$(npm version prerelease --preid $PREID --no-git-tag-version)
+          echo "New version: $NEW_VERSION"
+
+          echo "new_version=$NEW_VERSION" >> $GITHUB_ENV
+
+      # 6. Commit version bump & push
+      - name: Commit and push version bump
+        run: |
+          git add package.json package-lock.json
+          git commit -m "chore: bump $PREID version to ${{ env.new_version }} [skip ci]"
           git push origin HEAD
 
-      # 6. Publish to npm
+      # 7. Publish to npm
       - name: Publish to npm
         run: |
           if [[ "${GITHUB_REF_NAME}" == release/*-alpha ]]; then
@@ -64,7 +90,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # 7. 使用 release-please-action 生成 PR 到 main
+      # 8. Generate PR to main branch
       - uses: googleapis/release-please-action@v4
         with:
           release-type: node

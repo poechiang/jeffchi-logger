@@ -28,17 +28,37 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      # 4. 配置 git 用户（npm version 如果不需要 commit 可以省略）
+      # 4. 配置 git 用户
       - name: Configure git for CI
         run: |
-          git config --global user.email "poechiang@live.cn"
-          git config --global user.name "porechiang"
+          git config --global user.email "poechiang@users.noreply.github.com"
+          git config --global user.name "poechiang"
 
-      # 5. 发布正式版本
-      - name: Publish official version
+      # 5. 转换 pre-release 到正式版本（如果 package.json 是 pre-release）
+      - name: Convert pre-release to official
+        id: version
         run: |
-          # 如果你想确保版本是正式版，可以去掉 preid
-          npm version patch --no-git-tag-version  # 或者用 exact version
+          CURRENT=$(node -p "require('./package.json').version")
+          echo "Current package.json version: $CURRENT"
+
+          # 如果是 pre-release，去掉 -alpha/-beta/-rc
+          NEW_VERSION=$(node -p "require('./package.json').version.replace(/-(alpha|beta|rc)\.\d+$/, '')")
+          echo "Official version to publish: $NEW_VERSION"
+
+          # 更新 package.json
+          npm version $NEW_VERSION --no-git-tag-version
+          echo "new_version=$NEW_VERSION" >> $GITHUB_ENV
+
+      # 6. Commit version bump (可选)
+      - name: Commit version bump
+        run: |
+          git add package.json package-lock.json
+          git commit -m "chore: bump official version to ${{ env.new_version }} [skip ci]" || echo "No changes to commit"
+          git push origin HEAD || echo "Push skipped"
+
+      # 7. Publish to npm latest
+      - name: Publish official version to npm
+        run: |
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
