@@ -1,28 +1,44 @@
-#正式发布
-name: publish
+name: publish-release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     steps:
+      # 1. Checkout
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 拉取所有 commit + tag
+          fetch-depth: 0
+
+      # 2. Node 环境
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
-      - run: npm install
+
+      # 3. 安装依赖 & build
+      - run: npm ci
       - run: npm run build
-      - name: Publish to npm
+
+      # 4. 配置 git 用户（npm version 如果不需要 commit 可以省略）
+      - name: Configure git for CI
         run: |
           git config --global user.email "poechiang@live.cn"
-          git config --global user.name "poechiang"
+          git config --global user.name "porechiang"
+
+      # 5. 发布正式版本
+      - name: Publish official version
+        run: |
+          # 如果你想确保版本是正式版，可以去掉 preid
+          npm version patch --no-git-tag-version  # 或者用 exact version
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,4 +1,4 @@
-# ✔ 自动生成 Release PR / CHANGELOG
+# ✔ 自动生成  CHANGELOG
 # ✔ 不直接发布到 npm
 name: release-please
 
@@ -9,7 +9,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   release:
