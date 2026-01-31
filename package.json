@@ -1,6 +1,6 @@
 {
   "name": "@jeffchi/logger",
-  "version": "4.2.0-alpha.5",
+  "version": "4.2.0-alpha.6",
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "browser": "lib/index.cjs",
