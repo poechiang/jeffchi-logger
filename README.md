@@ -37,6 +37,8 @@ yarn add @jeffchi/logger
 pnpm add @jeffchi/logger --save
 ```
 
+123123123
+
 如果你的网络环境不佳，推荐使用 [cnpm](https://github.com/cnpm/cnpm)。
 
 ## 用法
