@@ -121,7 +121,7 @@ export const withTags = (tags: LogTags, options?: ILogOptions): ILogger => {
 
     // ignoreTrow默认行为改为true
     if (disableThrow === false) {
-      throw new Error(msg, { cause });
+      throw new Error(msg);
     }
   };
   return { assert, debug, info, log, warn, error, success };
