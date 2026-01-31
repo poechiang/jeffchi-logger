@@ -3,7 +3,7 @@
     "logger": {
       "path": ".",
       "release-type": "node",
-      "version": "4.2.3",
+      "version": "4.3.0",
       "package-name": "@jeffchi/logger",
       "bump-minor-pre-major": false
     }
