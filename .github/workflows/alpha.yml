@@ -25,7 +25,7 @@ jobs:
       - uses: googleapis/release-please-action@v4
         with:
           release-type: node
-          release-as: '4.1.1-alpha.0'
+          release-as: '4.1.2-alpha.0'
       - name: Publish alpha to npm
         run: |
           git config --global user.email "poechiang@live.cn"
