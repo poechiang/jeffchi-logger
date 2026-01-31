@@ -21,8 +21,10 @@ jobs:
 
       - run: npm ci
       - run: npm run build
-
-      - run: npm version prerelease --preid alpha --no-git-tag-version
+      - name: Bump alpha version
+        run: |
+          npm version prerelease --preid alpha
+          git push origin HEAD
       - run: npm publish --tag alpha --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
