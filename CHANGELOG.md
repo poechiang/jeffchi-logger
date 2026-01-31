@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v4.2.0-rc.0...v4.3.0-rc.0) (2026-01-31)
+
+
+### Features
+
+* remove local publish logic - 5 ([c42ac66](https://github.com/poechiang/jeffchi-logger/commit/c42ac6684ce0a4353d0b77f4c0ef02ffb370397a))
+* remove local publish logic - 5 ([9e61625](https://github.com/poechiang/jeffchi-logger/commit/9e616251561fa90177b76a2123734143eda715b3))
+
 ## [4.2.0-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v4.1.1-rc.0...v4.2.0-rc.0) (2026-01-31)
 
 
