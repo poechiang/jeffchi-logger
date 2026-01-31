@@ -7,5 +7,6 @@
       "package-name": "@jeffchi/logger",
       "bump-minor-pre-major": false
     }
-  }
+  },
+  ".": "4.3.1-beta.0"
 }
