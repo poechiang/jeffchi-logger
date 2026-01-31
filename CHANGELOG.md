@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v4.1.1-rc.0...v4.2.0-rc.0) (2026-01-31)
+
+
+### Features
+
+* add npm account for workflow ([355c7b0](https://github.com/poechiang/jeffchi-logger/commit/355c7b09edaab528ef6e1839738c6b743838f9cb))
+* checkout all tags ([6ea4c32](https://github.com/poechiang/jeffchi-logger/commit/6ea4c32de785d52af03f258b2080181d2d854fcc))
+* rebuild github action ([b55ac10](https://github.com/poechiang/jeffchi-logger/commit/b55ac1048593ab36ee2ab56381a1e92a393f2403))
+* rebuild github action ([233a43e](https://github.com/poechiang/jeffchi-logger/commit/233a43e6af227495844290e1144b9a37a90b3903))
+* rebuild github action - 2 ([cf6b103](https://github.com/poechiang/jeffchi-logger/commit/cf6b103f608ee84eb06c6e131805f1d7dd2add91))
+* remove local publish logic ([6931691](https://github.com/poechiang/jeffchi-logger/commit/6931691b477ae7678d3e5fe6394ede2690344af3))
+* remove local publish logic - 2 ([89cf089](https://github.com/poechiang/jeffchi-logger/commit/89cf089b96482e4867929015f18b0b1567641295))
+* remove local publish logic - 3 ([5d94347](https://github.com/poechiang/jeffchi-logger/commit/5d943474f710cef5139d0807b6d18d2082fb5aa6))
+* remove local publish logic - 4 ([e913b3e](https://github.com/poechiang/jeffchi-logger/commit/e913b3e96648622accdef4d1a8f5f11d0d8546aa))
+
+
+### Bug Fixes
+
+* remove test file ([32b24f8](https://github.com/poechiang/jeffchi-logger/commit/32b24f89610e96e22065d9d6a82c041ca3dba23c))
+
 ### [4.1.1-rc.0](https://github.com/poechiang/jeffchi-logger/compare/v4.1.0-rc.0...v4.1.1-rc.0) (2026-01-30)
 
 
