@@ -21,6 +21,10 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+      - name: Configure git for CI
+        run: |
+          git config --global user.email "poechiang@live.cn"
+          git config --global user.name "poechiang"
       - name: Bump alpha version
         run: |
           npm version prerelease --preid alpha
