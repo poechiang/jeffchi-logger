@@ -2,7 +2,7 @@
   <a href="https://github.com/poechiang/jeffchi-logger#readme" target="_blank">@JeffChi/Logger</a>
 </h1>
 
-<div align="center">
+<div >
 
 A log print output javascript tool library that can be used at the front and back ends
 
@@ -12,16 +12,14 @@ A log print output javascript tool library that can be used at the front and bac
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![JEST Report](https://github.com/poechiang/jeffchi-logger/actions/workflows/jest-report.yml/badge.svg)](https://github.com/poechiang/jeffchi-logger/actions/workflows/jest-report.yml)
 
-
-
 ## 支持环境
 
 - 现代浏览器。
 - 支持服务端使用, 在服务端使用时默认写入 %root%/logs/yyyy-mm-dd.log 日志文件。
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Opera |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Edge                                                         | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              | last 2 versions                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Edge                                                                                                                                                                                                       | last 2 versions                                                                                                                                                                                              | last 2 versions                                                                                                                                                                                          | last 2 versions                                                                                                                                                                                          | last 2 versions                                                                                                                                                                                      |
 
 ## 安装
 
