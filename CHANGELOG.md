@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0-beta.0](https://github.com/poechiang/jeffchi-logger/compare/v4.1.2-beta.0...v4.2.0-beta.0) (2026-01-31)
+
+
+### Features
+
+* add install doc for pnpm ([25cc3ca](https://github.com/poechiang/jeffchi-logger/commit/25cc3cafd1fc2ea80f3edd3bab27373e97e7a14e))
+* add install doc for pnpm & rebuild workflow ([45b7b42](https://github.com/poechiang/jeffchi-logger/commit/45b7b42efdda436214f62e7f1d577a692c14df11))
+* add version to 4.2.1 ([f6d5552](https://github.com/poechiang/jeffchi-logger/commit/f6d5552834fa74a53bca1d91c934effb3e036ac3))
+* modify readme and test rebuild alpha npm package ([01f230d](https://github.com/poechiang/jeffchi-logger/commit/01f230d54790b6f35ef6dfeebc15bd2ca08483b5))
+* modify ymal - 1 ([2a62e17](https://github.com/poechiang/jeffchi-logger/commit/2a62e17b49ad56411ce2a55df0f4c36384b7d0fb))
+* modify ymal - 2 ([c961220](https://github.com/poechiang/jeffchi-logger/commit/c961220cc6ae5bc1778117939760aafe15e9e236))
+* rebuild  workflow yml - 12 ([9e90ac7](https://github.com/poechiang/jeffchi-logger/commit/9e90ac7137297eb86b9aead09f5e8dcce75eaf6b))
+* rebuild beta workflow yml - 11 ([e789ad8](https://github.com/poechiang/jeffchi-logger/commit/e789ad8806737ce6819cbfe2169c3b4dbfdf1faf))
+* rebuild release workflow yml - 10 ([22a3412](https://github.com/poechiang/jeffchi-logger/commit/22a34128314912954fc27525372d04d4ad97984c))
+* rebuild release workflow yml - 7 ([c1c4edb](https://github.com/poechiang/jeffchi-logger/commit/c1c4edbd04bb2efd9dd5a58a149faca531145e28))
+* rebuild release workflow yml - 8 ([48d088d](https://github.com/poechiang/jeffchi-logger/commit/48d088daf24f00349ec4f23c2aec8ded71a0e517))
+* rebuild release workflow yml - 9 ([04d2efb](https://github.com/poechiang/jeffchi-logger/commit/04d2efbb64c26c3beae5487a5244141444c95784))
+
+
+### Bug Fixes
+
+* bugfix - 1 ([0f65381](https://github.com/poechiang/jeffchi-logger/commit/0f65381cf38354da2ccf256cc93ebb3140a8fb5e))
+* bugfix - 2 rebeta ([9f88999](https://github.com/poechiang/jeffchi-logger/commit/9f889996cbd73e600a08ee8473bd7260c95a3613))
+
 ## [4.1.2-beta.0](https://github.com/poechiang/jeffchi-logger/compare/v4.3.0-rc.0...v4.1.2-beta.0) (2026-01-31)
 
 
