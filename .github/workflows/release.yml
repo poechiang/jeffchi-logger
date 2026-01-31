@@ -1,33 +1,19 @@
-# ✔ 自动生成 Release PR / CHANGELOG
+# ✔ 自动生成  CHANGELOG
 # ✔ 不直接发布到 npm
 name: release-please
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-      - run: npm install
       - uses: googleapis/release-please-action@v4
         with:
           release-type: node
-
-      - name: Publish rc to npm
-        run: |
-          git config --global user.email "poechiang@live.cn"
-          git config --global user.name "poechiang"
-          npm publish --tag rc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

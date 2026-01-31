@@ -1,0 +1,70 @@
+name: publish-pre-release
+
+on:
+  push:
+    branches:
+      - release/*-alpha
+      - release/*-beta
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. Node 环境
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      # 3. 安装依赖 & build
+      - run: npm ci
+      - run: npm run build
+
+      # 4. 配置 git 用户身份
+      - name: Configure git for CI
+        run: |
+          git config --global user.email "poechiang@live.cn"
+          git config --global user.name "porechiang"
+
+      # 5. 根据分支类型自动选择 preid
+      - name: Bump prerelease version
+        id: bump
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == release/*-alpha ]]; then
+            PREID="alpha"
+          elif [[ "${GITHUB_REF_NAME}" == release/*-beta ]]; then
+            PREID="beta"
+          else
+          echo "Not a pre-release branch, skipping"
+            exit 0
+          fi
+
+          # 自动 bump 版本并 commit
+          npm version prerelease --preid $PREID -m "chore: bump $PREID version [skip ci]"
+          git push origin HEAD
+
+      # 6. Publish to npm
+      - name: Publish to npm
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == release/*-alpha ]]; then
+            npm publish --tag alpha --access public
+          else
+            npm publish --tag beta --access public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # 7. 使用 release-please-action 生成 PR 到 main
+      - uses: googleapis/release-please-action@v4
+        with:
+          release-type: node
